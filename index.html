@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Academic Homepage</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header>
+    <nav class="navbar">
+      <div class="nav-left">My Academic Site</div>
+      <ul class="nav-right">
+        <li><a href="about/index.html">About</a></li>
+        <li><a href="projects/index.html">Projects</a></li>
+        <li><a href="publications/index.html">Publications</a></li>
+        <li><a href="contact/index.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Welcome Section -->
+  <main class="hero">
+    <img src="assets/images/avatar.jpg" alt="Profile Photo" class="avatar" />
+    <h1>Hello, I am Wu Guojia!</h1>
+    <p>I am an undergraduate researcher focus on basic medicine and bioinformatics.</p>
+    
+    <div class="card-container">
+      <div class="card" onclick="navigateTo('about/index.html')">
+        <h2>About</h2>
+        <p>Learn about my background, research, and skills.</p>
+      </div>
+      <div class="card" onclick="navigateTo('projects/index.html')">
+        <h2>Projects</h2>
+        <p>Explore my past and ongoing projects.</p>
+      </div>
+      <div class="card" onclick="navigateTo('publications/index.html')">
+        <h2>Publications</h2>
+        <p>See my published work in journals and conferences.</p>
+      </div>
+      <div class="card" onclick="navigateTo('contact/index.html')">
+        <h2>Contact</h2>
+        <p>Get in touch with me directly.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 My Academic Site. All rights reserved.</p>
+  </footer>
+
+  <script src="assets/js/script.js"></script>
+</body>
+</html>
