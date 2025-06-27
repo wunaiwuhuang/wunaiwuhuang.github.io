@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Publications</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header>
+    <nav class="navbar">
+      <div class="nav-left">My Academic Site</div>
+      <ul class="nav-right">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../about/index.html">About</a></li>
+        <li><a href="../publications/index.html">Publications</a></li>
+        <li><a href="../contact/index.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Project Section -->
+  <main class="project-section">
+    <img src="../assets/images/avatar.jpg" alt="Profile Photo" class="avatar avatar-center" />
+    <h1 class="section-title">Research Projects</h1>
+    <div id="project-list"></div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2025 Guojia Wu. All rights reserved.</p>
+  </footer>
+
+  <script src="./projectsData.js"></script>
+  <script>
+    // Sort projects by start date descending
+    projects.sort((a, b) => b.start.localeCompare(a.start));
+    const container = document.getElementById('project-list');
+
+    projects.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'project-card';
+
+      const githubLink = p.github
+        ? `<a href="${p.github}" target="_blank" class="github-link">GitHub</a>`
+        : `<span class="placeholder-link">GitHub: Wait for update</span>`;
+
+      const detailLink = p.detail
+        ? `<a href="./${p.id}/index.html" class="btn-link">Details</a>`
+        : `<span class="placeholder-link">Details: Wait for update</span>`;
+
+      card.innerHTML = `
+        <div class="project-header">
+          <div class="project-title">[${p.type}] ${p.title}</div>
+          <div class="project-date">${formatDate(p.start)} – ${p.end}</div>
+        </div>
+        <div class="project-desc">${p.description}</div>
+        <div class="project-links">
+          ${githubLink}
+          ${detailLink}
+        </div>
+      `;
+
+      container.appendChild(card);
+    });
+
+    function formatDate(iso) {
+      const [year, month] = iso.split('-');
+      const monthNames = ["Jan.", "Feb.", "Mar.", "Apr.", "May", "Jun.", "Jul.", "Aug.", "Sep.", "Oct.", "Nov.", "Dec."];
+      return `${monthNames[parseInt(month)-1]} ${year}`;
+    }
+  </script>
+</body>
+</html>

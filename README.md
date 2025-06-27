@@ -33,6 +33,7 @@ This is the personal academic website of **Guojia Wu**, built with HTML, CSS, an
 │ └── awards.html # Honour and awards section
 ├── projects/
 │ ├── index.html # Project list
+│ ├── projectsData.js # Project source list
 │ └── project1/ - project6/ # Sub-projects (each with its own index.html)
 ├── publications/
 │ └── index.html # Publication list

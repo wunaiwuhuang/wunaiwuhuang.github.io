@@ -48,7 +48,7 @@ touch contact/index.html publications/index.html
 
 # Projects
 mkdir -p projects
-touch projects/index.html
+touch projects/index.html projects/projectsData.js
 
 # Create 6 example projects
 for i in {1..6}; do
