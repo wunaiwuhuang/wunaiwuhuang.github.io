@@ -1,0 +1,70 @@
+baseURL = 'https://wunaiwuhuang.github.io/'
+title = 'Guojia Wu'
+theme = 'stack'
+
+defaultContentLanguage = 'en'
+
+[languages.en]
+  languageName = 'English'
+  languageCode = 'en'
+  locale = 'en-US'
+  weight = 1
+
+[params]
+  mainSections = ['projects', 'publications']
+
+[params.sidebar]
+  subtitle = 'Undergraduate Researcher — Basic Medicine & Bioinformatics'
+  avatar = '/images/avatar.jpg'
+
+[params.article]
+  [params.article.math]
+    enable = true
+
+[markup]
+  [markup.highlight]
+    noClasses = false
+  [markup.tableOfContents]
+    endLevel = 3
+    ordered = false
+    startLevel = 1
+  [markup.goldmark.renderer]
+    unsafe = true
+
+[[menu.main]]
+  identifier = 'about'
+  name = 'About'
+  url = '/about/'
+  weight = 1
+
+[[menu.main]]
+  identifier = 'projects'
+  name = 'Projects'
+  url = '/projects/'
+  weight = 2
+
+[[menu.main]]
+  identifier = 'publications'
+  name = 'Publications'
+  url = '/publications/'
+  weight = 3
+
+[[menu.main]]
+  identifier = 'contact'
+  name = 'Contact'
+  url = '/contact/'
+  weight = 4
+
+[[menu.social]]
+  identifier = 'github'
+  name = 'GitHub'
+  url = 'https://github.com/wunaiwuhuang'
+  params = { icon = 'brand-github', newTab = true }
+  weight = 1
+
+[[menu.social]]
+  identifier = 'email'
+  name = 'Email'
+  url = 'mailto:wuguojia@tmu.edu.cn'
+  params = { icon = 'link', newTab = true }
+  weight = 2

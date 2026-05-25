@@ -1,96 +1,67 @@
-# 🎓 Academic Personal Homepage
+# Guojia Wu — Academic Homepage
 
-This is the personal academic website of **Guojia Wu**, built with HTML, CSS, and JavaScript. The design emphasizes elegance, clarity, and modularity—making it suitable for showcasing academic background, research interests, publications, and contact information.
+Built with [Hugo](https://gohugo.io) (Stack theme) and deployed via GitHub Actions to GitHub Pages.
 
-<p align="center">
-  <img src="assets/images/avatar.jpg" width="120" alt="Avatar" />
-</p>
+**Live site:** <https://wunaiwuhuang.github.io/>
 
----
+## Directory Structure
 
-## 📌 Website Features
-
-- 🔹 Clean and elegant academic style
-- 🔹 Responsive layout, compatible with modern browsers
-- 🔹 Modular structure with separate sections:
-  - **Home** (Introduction, navigation, cards)
-  - **About** (Education, Research, Skills, Awards)
-  - **Projects** (Up to 6 project subpages)
-  - **Publications** (Chronological & categorized list)
-  - **Contact** (Emails, GitHub, institutional info)
-
----
-
-## 🗂️ Directory Structure
-```text
-.
-├── index.html # Home page
-├── about/
-│ ├── index.html # About overview page
-│ ├── education.html # Education section
-│ ├── research.html # Research interest section
-│ ├── skills.html # Academic skills section
-│ └── awards.html # Honour and awards section
-├── projects/
-│ ├── index.html # Project list
-│ ├── projectsData.js # Project source list
-│ └── project1/ - project6/ # Sub-projects (each with its own index.html)
-├── publications/
-│ └── index.html # Publication list
-├── contact/
-│ └── index.html # Contact info
-├── assets/
-│ ├── css/style.css # Custom stylesheet
-│ ├── js/script.js # JavaScript (if needed)
-│ └── images/avatar.jpg # Profile image
-├── 00.initweb.sh # Initialization script (optional)
-└── README.md # This file
 ```
----
+.
+├── .github/workflows/gh-pages.yml   # CI/CD: auto-deploy to gh-pages branch
+├── hugo.toml                         # Hugo site configuration
+├── archetypes/                       # Content templates (hugo new)
+├── assets/                           # SASS/JS overrides
+├── content/                          # All site content (Markdown)
+│   ├── _index.md                     # Homepage
+│   ├── about/index.md                # About page
+│   ├── projects/
+│   │   ├── _index.md                 # Project list page
+│   │   └── <name>.md                 # Individual project pages
+│   ├── publications/index.md         # Publication list
+│   └── contact/index.md              # Contact information
+├── layouts/                          # Custom layout overrides
+├── static/                           # Static files served as-is
+│   └── images/
+├── themes/stack/                     # Hugo theme (git submodule)
+└── README.md
+```
 
-## 🌐 Live Preview
+## Adding Content
 
-You can deploy this site to GitHub Pages or any static host.  
-If published, the live URL would be:
+### New project
 
-https://<your-github-username>.github.io/<repository-name>/
+```bash
+hugo new projects/my-project.md
+```
 
+Edit `content/projects/my-project.md` with the relevant front matter (`date`, `tags`, `categories`) and description.
 
----
+### New publication
 
-## 🚀 How to Deploy to GitHub Pages
+Edit `content/publications/index.md` directly — format follows the existing list style.
 
-1. Push this repository to your GitHub account.
-2. Go to **Settings → Pages**
-3. Under **Source**, select `main` branch and root `/` folder.
-4. Save and wait for GitHub to deploy.
+### New blog post
 
-> 💡 Your site will be available at:
-> `https://<username>.github.io/<repo-name>/`
+```bash
+hugo new posts/my-article.md
+```
 
----
+## Local Development
 
-## ✏️ Customization
+```bash
+# Install Hugo Extended >= v0.157.0
+# Clone with submodules
+git clone --recurse-submodules https://github.com/wunaiwuhuang/wunaiwuhuang.github.io.git
 
-- Replace `avatar.jpg` in `assets/images/` with your own photo.
-- Edit text in the HTML files as needed.
-- Add or remove project folders under `projects/`.
-- Modify `style.css` to change font, color scheme, or layout.
+# Start dev server
+hugo server -D
+```
 
----
+Open <http://localhost:1313/> — changes to Markdown files trigger live reload.
 
-## 📄 License
+## Deployment
 
-This repository is maintained by **Guojia Wu**.  
-You are welcome to fork, reuse, or adapt this code with attribution.
+Push to `main`. GitHub Actions compiles the site with `hugo --minify` and publishes the output to the `gh-pages` branch, which GitHub Pages serves.
 
----
-
-## 📫 Contact
-
-- ✉️ Academic Email: [wuguojia@tmu.edu.cn](mailto:wuguojia@tmu.edu.cn)  
-- ✉️ Personal Email: [2291475678@qq.com](mailto:2291475678@qq.com)  
-- 🌐 GitHub: [github.com/wunaiwuhuang](https://github.com/wunaiwuhuang)  
-- 🏫 Institution: Tianjin Medical University  
-
-
+No manual build step required.
