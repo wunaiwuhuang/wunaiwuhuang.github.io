@@ -1,0 +1,791 @@
+<!doctype html><html lang=en-US dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="Comprehensive Bash reference covering variables, control structures, functions, text processing, and scripting best practices."><title>Bash Grammar Basic</title><link rel=canonical href=https://wunaiwuhuang.github.io/posts/bash-grammar-basic/><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=preload as=style href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap"><link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap"><link rel=stylesheet href=/scss/style.min.e62e09c60ba428a627e03568fa3df938f6a8224f815b5846f00816c17d4a0be4.css><meta property='og:title' content="Bash Grammar Basic"><meta property='og:description' content="Comprehensive Bash reference covering variables, control structures, functions, text processing, and scripting best practices."><meta property='og:url' content='https://wunaiwuhuang.github.io/posts/bash-grammar-basic/'><meta property='og:site_name' content='Guojia Wu'><meta property='og:type' content='article'><meta property='article:section' content='Posts'><meta property='article:tag' content='Bash'><meta property='article:tag' content='Shell'><meta property='article:tag' content='Linux'><meta property='article:tag' content='Cheatsheet'><meta property='article:published_time' content='2025-04-27T00:00:00+00:00'><meta property='article:modified_time' content='2025-04-27T00:00:00+00:00'><meta name=twitter:title content="Bash Grammar Basic"><meta name=twitter:description content="Comprehensive Bash reference covering variables, control structures, functions, text processing, and scripting best practices."></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="Toggle Menu">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/images/avatar.jpg width height class=site-logo loading=lazy alt=Avatar></a></figure><div class=site-meta><h1 class=site-name><a href=/>Guojia Wu</a></h1><h2 class=site-description>Undergraduate Researcher — Basic Medicine & Bioinformatics</h2></div></header><ol class=menu-social><li><a href=https://github.com/wunaiwuhuang target=_blank title=GitHub rel=me><svg class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=mailto:wuguojia@tmu.edu.cn target=_blank title=Email rel=me><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/about/><span>About</span></a></li><li><a href=/projects/><span>Projects</span></a></li><li><a href=/publications/><span>Publications</span></a></li><li><a href=/contact/><span>Contact</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>Dark Mode</span></li></ol></li></ol></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/coding-notes/ style=background-color:#efe0be;color:#3d2f0f>Coding Notes</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/posts/bash-grammar-basic/>Bash Grammar Basic</a></h2><h3 class=article-subtitle>Comprehensive Bash reference covering variables, control structures, functions, text processing, and scripting best practices.</h3></div><footer class=article-meta><div class=inline-meta><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2025-04-27T00:00:00Z>Sunday, April 27, 2025</time>
+<svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>19 minutes read</time></div></footer></div></header><section class=article-content><h2 id=1-basic-concepts>1. Basic Concepts</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Running scripts</span>
+</span></span><span class=line><span class=cl>bash script.sh          <span class=c1># run script</span>
+</span></span><span class=line><span class=cl>./script.sh             <span class=c1># run if executable (chmod +x script.sh)</span>
+</span></span><span class=line><span class=cl><span class=nb>source</span> script.sh        <span class=c1># run in current shell</span>
+</span></span><span class=line><span class=cl>. script.sh             <span class=c1># same as source</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Shebang (first line of script)</span>
+</span></span><span class=line><span class=cl><span class=c1>#!/bin/bash             # use bash</span>
+</span></span><span class=line><span class=cl><span class=c1>#!/usr/bin/env bash     # use bash from PATH (portable)</span>
+</span></span></code></pre></div><blockquote><p>Shebang tells system which interpreter to use. <code>#!/usr/bin/env bash</code> is more portable.</p></blockquote><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Comments</span>
+</span></span><span class=line><span class=cl><span class=c1># This is a comment</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;Hello&#34;</span>  <span class=c1># inline comment</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>: <span class=s1>&#39;
+</span></span></span><span class=line><span class=cl><span class=s1>Multi-line comment
+</span></span></span><span class=line><span class=cl><span class=s1>using colon and single quotes
+</span></span></span><span class=line><span class=cl><span class=s1>&#39;</span>
+</span></span></code></pre></div><blockquote><p>Use <code>#</code> for comments. Multi-line comments use <code>: '...'</code> trick.</p></blockquote><hr><h2 id=2-variables>2. Variables</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Variable assignment (no spaces around =)</span>
+</span></span><span class=line><span class=cl><span class=nv>name</span><span class=o>=</span><span class=s2>&#34;value&#34;</span>            <span class=c1># string</span>
+</span></span><span class=line><span class=cl><span class=nv>number</span><span class=o>=</span><span class=m>42</span>               <span class=c1># number (still stored as string)</span>
+</span></span><span class=line><span class=cl><span class=nv>path</span><span class=o>=</span>/home/user         <span class=c1># no quotes needed if no spaces</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Variable usage</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=nv>$name</span>              <span class=c1># simple expansion</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=si>${</span><span class=nv>name</span><span class=si>}</span>            <span class=c1># explicit (safer, required in some contexts)</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;Hello </span><span class=nv>$name</span><span class=s2>&#34;</span>      <span class=c1># inside double quotes</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s1>&#39;Hello $name&#39;</span>      <span class=c1># single quotes: literal (no expansion)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Command substitution</span>
+</span></span><span class=line><span class=cl><span class=nv>result</span><span class=o>=</span><span class=k>$(</span><span class=nb>command</span><span class=k>)</span>       <span class=c1># modern syntax (preferred)</span>
+</span></span><span class=line><span class=cl><span class=nv>result</span><span class=o>=</span><span class=sb>`</span><span class=nb>command</span><span class=sb>`</span>        <span class=c1># old syntax (backticks)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Arithmetic</span>
+</span></span><span class=line><span class=cl><span class=nv>result</span><span class=o>=</span><span class=k>$((</span><span class=m>5</span> <span class=o>+</span> <span class=m>3</span><span class=k>))</span>       <span class=c1># arithmetic expansion</span>
+</span></span><span class=line><span class=cl><span class=nv>result</span><span class=o>=</span><span class=k>$((</span>x <span class=o>*</span> <span class=m>2</span><span class=k>))</span>       <span class=c1># use variables without $</span>
+</span></span><span class=line><span class=cl><span class=o>((</span>x++<span class=o>))</span>                 <span class=c1># increment</span>
+</span></span><span class=line><span class=cl><span class=o>((</span>x--<span class=o>))</span>                 <span class=c1># decrement</span>
+</span></span><span class=line><span class=cl><span class=nb>let</span> <span class=s2>&#34;x = 5 + 3&#34;</span>         <span class=c1># let command</span>
+</span></span></code></pre></div><blockquote><p>No spaces around <code>=</code> in assignments. Use <code>$(( ))</code> for arithmetic. Always quote variables: <code>"$var"</code> to prevent word splitting.</p></blockquote><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Special variables</span>
+</span></span><span class=line><span class=cl><span class=nv>$0</span>                      <span class=c1># script name</span>
+</span></span><span class=line><span class=cl><span class=nv>$1</span>, <span class=nv>$2</span>, ..., <span class=nv>$9</span>         <span class=c1># positional parameters (arguments)</span>
+</span></span><span class=line><span class=cl><span class=si>${</span><span class=nv>10</span><span class=si>}</span>                   <span class=c1># 10th+ argument (braces required)</span>
+</span></span><span class=line><span class=cl><span class=nv>$#</span>                      <span class=c1># number of arguments</span>
+</span></span><span class=line><span class=cl><span class=nv>$@</span>                      <span class=c1># all arguments (as separate words)</span>
+</span></span><span class=line><span class=cl><span class=nv>$*</span>                      <span class=c1># all arguments (as single word)</span>
+</span></span><span class=line><span class=cl><span class=nv>$$</span>                      <span class=c1># process ID</span>
+</span></span><span class=line><span class=cl><span class=nv>$?</span>                      <span class=c1># exit status of last command</span>
+</span></span><span class=line><span class=cl><span class=nv>$!</span>                      <span class=c1># PID of last background process</span>
+</span></span><span class=line><span class=cl><span class=nv>$_</span>                      <span class=c1># last argument of previous command</span>
+</span></span></code></pre></div><blockquote><p><code>$@</code> and <code>"$@"</code> preserve argument structure. Always quote: <code>"$@"</code>.</p></blockquote><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Environment variables</span>
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>VAR</span><span class=o>=</span><span class=s2>&#34;value&#34;</span>      <span class=c1># export to child processes</span>
+</span></span><span class=line><span class=cl><span class=nb>unset</span> VAR               <span class=c1># remove variable</span>
+</span></span><span class=line><span class=cl>env                     <span class=c1># list environment variables</span>
+</span></span><span class=line><span class=cl>printenv                <span class=c1># same</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Common environment variables</span>
+</span></span><span class=line><span class=cl><span class=nv>$HOME</span>                   <span class=c1># home directory</span>
+</span></span><span class=line><span class=cl><span class=nv>$USER</span>                   <span class=c1># username</span>
+</span></span><span class=line><span class=cl><span class=nv>$PWD</span>                    <span class=c1># current directory</span>
+</span></span><span class=line><span class=cl><span class=nv>$OLDPWD</span>                 <span class=c1># previous directory</span>
+</span></span><span class=line><span class=cl><span class=nv>$PATH</span>                   <span class=c1># executable search path</span>
+</span></span><span class=line><span class=cl><span class=nv>$SHELL</span>                  <span class=c1># current shell</span>
+</span></span></code></pre></div><blockquote><p>Use <code>export</code> to make variables available to child processes.</p></blockquote><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Variable expansion modifiers</span>
+</span></span><span class=line><span class=cl><span class=si>${</span><span class=nv>var</span><span class=k>:-</span><span class=nv>default</span><span class=si>}</span>         <span class=c1># use default if unset</span>
+</span></span><span class=line><span class=cl><span class=si>${</span><span class=nv>var</span><span class=p>:=default</span><span class=si>}</span>         <span class=c1># assign default if unset</span>
+</span></span><span class=line><span class=cl><span class=si>${</span><span class=nv>var</span><span class=p>:?error</span><span class=si>}</span>           <span class=c1># error if unset</span>
+</span></span><span class=line><span class=cl><span class=si>${</span><span class=nv>var</span><span class=p>:+value</span><span class=si>}</span>           <span class=c1># use value if set</span>
+</span></span><span class=line><span class=cl><span class=si>${#</span><span class=nv>var</span><span class=si>}</span>                 <span class=c1># length of string</span>
+</span></span><span class=line><span class=cl><span class=si>${</span><span class=nv>var</span><span class=p>:</span><span class=nv>pos</span><span class=si>}</span>              <span class=c1># substring from position</span>
+</span></span><span class=line><span class=cl><span class=si>${</span><span class=nv>var</span><span class=p>:</span><span class=nv>pos</span><span class=p>:</span><span class=nv>len</span><span class=si>}</span>          <span class=c1># substring with length</span>
+</span></span><span class=line><span class=cl><span class=si>${</span><span class=nv>var</span><span class=p>#pattern</span><span class=si>}</span>          <span class=c1># remove shortest match from beginning</span>
+</span></span><span class=line><span class=cl><span class=si>${</span><span class=nv>var</span><span class=p>##pattern</span><span class=si>}</span>         <span class=c1># remove longest match from beginning</span>
+</span></span><span class=line><span class=cl><span class=si>${</span><span class=nv>var</span><span class=p>%pattern</span><span class=si>}</span>          <span class=c1># remove shortest match from end</span>
+</span></span><span class=line><span class=cl><span class=si>${</span><span class=nv>var</span><span class=p>%%pattern</span><span class=si>}</span>         <span class=c1># remove longest match from end</span>
+</span></span><span class=line><span class=cl><span class=si>${</span><span class=nv>var</span><span class=p>/pattern/repl</span><span class=si>}</span>     <span class=c1># replace first match</span>
+</span></span><span class=line><span class=cl><span class=si>${</span><span class=nv>var</span><span class=p>//pattern/repl</span><span class=si>}</span>    <span class=c1># replace all matches</span>
+</span></span><span class=line><span class=cl><span class=si>${</span><span class=nv>var</span><span class=p>^</span><span class=si>}</span>                 <span class=c1># uppercase first character</span>
+</span></span><span class=line><span class=cl><span class=si>${</span><span class=nv>var</span><span class=p>^^</span><span class=si>}</span>                <span class=c1># uppercase all</span>
+</span></span><span class=line><span class=cl><span class=si>${</span><span class=nv>var</span><span class=p>,</span><span class=si>}</span>                 <span class=c1># lowercase first character</span>
+</span></span><span class=line><span class=cl><span class=si>${</span><span class=nv>var</span><span class=p>,,</span><span class=si>}</span>                <span class=c1># lowercase all</span>
+</span></span></code></pre></div><blockquote><p>Parameter expansion is powerful for string manipulation without external commands.</p></blockquote><hr><h2 id=3-quoting-and-escaping>3. Quoting and Escaping</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Double quotes: allow variable expansion</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;Hello </span><span class=nv>$name</span><span class=s2>&#34;</span>              <span class=c1># expands $name</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;Result: </span><span class=k>$(</span>date<span class=k>)</span><span class=s2>&#34;</span>          <span class=c1># expands command substitution</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;Path: </span><span class=nv>$HOME</span><span class=s2>&#34;</span>              <span class=c1># expands $HOME</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Single quotes: literal (no expansion)</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s1>&#39;Hello $name&#39;</span>              <span class=c1># prints: Hello $name</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s1>&#39;Path: $HOME&#39;</span>              <span class=c1># prints: Path: $HOME</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># No quotes: word splitting and globbing</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=nv>$files</span>                     <span class=c1># splits on whitespace</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$files</span><span class=s2>&#34;</span>                   <span class=c1># preserves whitespace</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Escaping</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;Price: \$5&#34;</span>               <span class=c1># prints: Price: $5</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;Line 1\nLine 2&#34;</span>           <span class=c1># prints: Line 1\nLine 2</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> -e <span class=s2>&#34;Line 1\nLine 2&#34;</span>        <span class=c1># -e enables interpretation</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># ANSI-C quoting</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s1>$&#39;Line 1\nLine 2&#39;</span>          <span class=c1># interprets escape sequences</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s1>$&#39;Tab:\t|&#39;</span>                 <span class=c1># tab character</span>
+</span></span></code></pre></div><blockquote><p>Always quote variables: <code>"$var"</code>. Use double quotes for expansion, single for literal. Use <code>$'...'</code> for escape sequences.</p></blockquote><hr><h2 id=4-command-line-basics>4. Command Line Basics</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Command structure</span>
+</span></span><span class=line><span class=cl><span class=nb>command</span> -options arguments
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Multiple commands</span>
+</span></span><span class=line><span class=cl>cmd1<span class=p>;</span> cmd2              <span class=c1># run sequentially</span>
+</span></span><span class=line><span class=cl>cmd1 <span class=o>&amp;&amp;</span> cmd2            <span class=c1># run cmd2 if cmd1 succeeds</span>
+</span></span><span class=line><span class=cl>cmd1 <span class=o>||</span> cmd2            <span class=c1># run cmd2 if cmd1 fails</span>
+</span></span><span class=line><span class=cl>cmd1 <span class=p>&amp;</span> cmd2             <span class=c1># run cmd1 in background, then cmd2</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Pipes and redirection</span>
+</span></span><span class=line><span class=cl>cmd1 <span class=p>|</span> cmd2             <span class=c1># pipe output to input</span>
+</span></span><span class=line><span class=cl>cmd &gt; file              <span class=c1># redirect stdout to file (overwrite)</span>
+</span></span><span class=line><span class=cl>cmd &gt;&gt; file             <span class=c1># redirect stdout to file (append)</span>
+</span></span><span class=line><span class=cl>cmd 2&gt; file             <span class=c1># redirect stderr to file</span>
+</span></span><span class=line><span class=cl>cmd <span class=p>&amp;</span>&gt; file             <span class=c1># redirect both stdout and stderr</span>
+</span></span><span class=line><span class=cl>cmd 2&gt;<span class=p>&amp;</span><span class=m>1</span>                <span class=c1># redirect stderr to stdout</span>
+</span></span><span class=line><span class=cl>cmd &lt; file              <span class=c1># redirect stdin from file</span>
+</span></span><span class=line><span class=cl>cmd <span class=o>&lt;&lt;&lt;</span> <span class=s2>&#34;string&#34;</span>        <span class=c1># here-string</span>
+</span></span><span class=line><span class=cl>cmd <span class=s>&lt;&lt; EOF              # here-document
+</span></span></span><span class=line><span class=cl><span class=s>line 1
+</span></span></span><span class=line><span class=cl><span class=s>line 2
+</span></span></span><span class=line><span class=cl><span class=s>EOF</span>
+</span></span></code></pre></div><blockquote><p><code>|</code> connects commands. <code>></code> writes to file. <code>>></code> appends. <code>2></code> for errors. <code>&></code> for both.</p></blockquote><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Pipelines with tee</span>
+</span></span><span class=line><span class=cl>cmd <span class=p>|</span> tee file          <span class=c1># write to file AND stdout</span>
+</span></span><span class=line><span class=cl>cmd <span class=p>|</span> tee -a file       <span class=c1># append to file AND stdout</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Process substitution</span>
+</span></span><span class=line><span class=cl>diff &lt;<span class=o>(</span>cmd1<span class=o>)</span> &lt;<span class=o>(</span>cmd2<span class=o>)</span>    <span class=c1># compare outputs</span>
+</span></span><span class=line><span class=cl>cmd1 &gt; &gt;<span class=o>(</span>cmd2<span class=o>)</span>          <span class=c1># output as input to cmd2</span>
+</span></span></code></pre></div><blockquote><p><code>tee</code> duplicates output. Process substitution <code>&lt;()</code> treats command output as file.</p></blockquote><hr><h2 id=5-control-structures>5. Control Structures</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># If statements</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> condition <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    commands
+</span></span><span class=line><span class=cl><span class=k>elif</span> <span class=o>[</span> condition <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    commands
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>    commands
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># One-liner</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> condition <span class=o>]</span><span class=p>;</span> <span class=k>then</span> command<span class=p>;</span> <span class=k>fi</span>
+</span></span><span class=line><span class=cl><span class=o>[</span> condition <span class=o>]</span> <span class=o>&amp;&amp;</span> <span class=nb>command</span>            <span class=c1># run if true</span>
+</span></span><span class=line><span class=cl><span class=o>[</span> condition <span class=o>]</span> <span class=o>||</span> <span class=nb>command</span>            <span class=c1># run if false</span>
+</span></span></code></pre></div><blockquote><p>Space after <code>[</code> and before <code>]</code> is required. <code>[ ]</code> is a command (test).</p></blockquote><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Test operators ([ ])</span>
+</span></span><span class=line><span class=cl><span class=c1># File tests</span>
+</span></span><span class=line><span class=cl><span class=o>[</span> -e file <span class=o>]</span>             <span class=c1># exists</span>
+</span></span><span class=line><span class=cl><span class=o>[</span> -f file <span class=o>]</span>             <span class=c1># is regular file</span>
+</span></span><span class=line><span class=cl><span class=o>[</span> -d file <span class=o>]</span>             <span class=c1># is directory</span>
+</span></span><span class=line><span class=cl><span class=o>[</span> -L file <span class=o>]</span>             <span class=c1># is symbolic link</span>
+</span></span><span class=line><span class=cl><span class=o>[</span> -r file <span class=o>]</span>             <span class=c1># is readable</span>
+</span></span><span class=line><span class=cl><span class=o>[</span> -w file <span class=o>]</span>             <span class=c1># is writable</span>
+</span></span><span class=line><span class=cl><span class=o>[</span> -x file <span class=o>]</span>             <span class=c1># is executable</span>
+</span></span><span class=line><span class=cl><span class=o>[</span> -s file <span class=o>]</span>             <span class=c1># exists and not empty</span>
+</span></span><span class=line><span class=cl><span class=o>[</span> file1 -nt file2 <span class=o>]</span>     <span class=c1># newer than</span>
+</span></span><span class=line><span class=cl><span class=o>[</span> file1 -ot file2 <span class=o>]</span>     <span class=c1># older than</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># String tests</span>
+</span></span><span class=line><span class=cl><span class=o>[</span> -z string <span class=o>]</span>           <span class=c1># is empty</span>
+</span></span><span class=line><span class=cl><span class=o>[</span> -n string <span class=o>]</span>           <span class=c1># is not empty</span>
+</span></span><span class=line><span class=cl><span class=o>[</span> <span class=nv>str1</span> <span class=o>=</span> str2 <span class=o>]</span>         <span class=c1># equal</span>
+</span></span><span class=line><span class=cl><span class=o>[</span> str1 !<span class=o>=</span> str2 <span class=o>]</span>        <span class=c1># not equal</span>
+</span></span><span class=line><span class=cl><span class=o>[</span> str1 &lt; str2 <span class=o>]</span>         <span class=c1># less than (lexicographic)</span>
+</span></span><span class=line><span class=cl><span class=o>[</span> str1 &gt; str2 <span class=o>]</span>         <span class=c1># greater than</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Numeric tests</span>
+</span></span><span class=line><span class=cl><span class=o>[</span> num1 -eq num2 <span class=o>]</span>       <span class=c1># equal</span>
+</span></span><span class=line><span class=cl><span class=o>[</span> num1 -ne num2 <span class=o>]</span>       <span class=c1># not equal</span>
+</span></span><span class=line><span class=cl><span class=o>[</span> num1 -lt num2 <span class=o>]</span>       <span class=c1># less than</span>
+</span></span><span class=line><span class=cl><span class=o>[</span> num1 -le num2 <span class=o>]</span>       <span class=c1># less or equal</span>
+</span></span><span class=line><span class=cl><span class=o>[</span> num1 -gt num2 <span class=o>]</span>       <span class=c1># greater than</span>
+</span></span><span class=line><span class=cl><span class=o>[</span> num1 -ge num2 <span class=o>]</span>       <span class=c1># greater or equal</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Logical operators</span>
+</span></span><span class=line><span class=cl><span class=o>[</span> cond1 -a cond2 <span class=o>]</span>      <span class=c1># AND</span>
+</span></span><span class=line><span class=cl><span class=o>[</span> cond1 -o cond2 <span class=o>]</span>      <span class=c1># OR</span>
+</span></span><span class=line><span class=cl><span class=o>[</span> ! cond <span class=o>]</span>              <span class=c1># NOT</span>
+</span></span></code></pre></div><blockquote><p>Use <code>-eq</code>, <code>-ne</code>, etc. for numbers. Use <code>=</code>, <code>!=</code> for strings. <code>[[ ]]</code> is preferred over <code>[ ]</code> (see below).</p></blockquote><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Double brackets [[ ]] (preferred, bash-specific)</span>
+</span></span><span class=line><span class=cl><span class=o>[[</span> condition <span class=o>]]</span>         <span class=c1># extended test command</span>
+</span></span><span class=line><span class=cl><span class=o>[[</span> <span class=nv>string</span> <span class=o>=</span>~ regex <span class=o>]]</span>   <span class=c1># regex matching</span>
+</span></span><span class=line><span class=cl><span class=o>[[</span> <span class=nv>$x</span> &gt; <span class=m>5</span> <span class=o>]]</span>            <span class=c1># no need to quote variables</span>
+</span></span><span class=line><span class=cl><span class=o>[[</span> -f file <span class=o>&amp;&amp;</span> -r file <span class=o>]]</span>  <span class=c1># logical operators (&amp;&amp;, ||)</span>
+</span></span><span class=line><span class=cl><span class=o>[[</span> <span class=nv>$str</span> <span class=o>==</span> pattern <span class=o>]]</span>   <span class=c1># pattern matching with * and ?</span>
+</span></span></code></pre></div><blockquote><p><code>[[ ]]</code> is safer: no word splitting, allows <code>&&</code> and <code>||</code>, supports regex with <code>=~</code>.</p></blockquote><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Case statement</span>
+</span></span><span class=line><span class=cl><span class=k>case</span> <span class=nv>$variable</span> in
+</span></span><span class=line><span class=cl>    pattern1<span class=o>)</span>
+</span></span><span class=line><span class=cl>        commands
+</span></span><span class=line><span class=cl>        <span class=p>;;</span>
+</span></span><span class=line><span class=cl>    pattern2<span class=p>|</span>pattern3<span class=o>)</span>
+</span></span><span class=line><span class=cl>        commands
+</span></span><span class=line><span class=cl>        <span class=p>;;</span>
+</span></span><span class=line><span class=cl>    *<span class=o>)</span>
+</span></span><span class=line><span class=cl>        default commands
+</span></span><span class=line><span class=cl>        <span class=p>;;</span>
+</span></span><span class=line><span class=cl><span class=k>esac</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Pattern examples</span>
+</span></span><span class=line><span class=cl>*.txt<span class=o>)</span>              <span class=c1># ends with .txt</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>0-9<span class=o>])</span>              <span class=c1># single digit</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>a-z<span class=o>]</span>*<span class=o>)</span>             <span class=c1># starts with lowercase</span>
+</span></span></code></pre></div><blockquote><p>Case supports patterns (wildcards). <code>;;</code> ends each case. <code>*)</code> is default.</p></blockquote><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># For loops</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> var in list<span class=p>;</span> <span class=k>do</span>
+</span></span><span class=line><span class=cl>    commands
+</span></span><span class=line><span class=cl><span class=k>done</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> file in *.txt<span class=p>;</span> <span class=k>do</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$file</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>done</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> i in <span class=o>{</span>1..10<span class=o>}</span><span class=p>;</span> <span class=k>do</span>        <span class=c1># brace expansion</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$i</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>done</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> i in <span class=o>{</span>1..10..2<span class=o>}</span><span class=p>;</span> <span class=k>do</span>     <span class=c1># step of 2</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$i</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>done</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=o>((</span><span class=nv>i</span><span class=o>=</span>0<span class=p>;</span> i&lt;10<span class=p>;</span> i++<span class=o>))</span><span class=p>;</span> <span class=k>do</span>  <span class=c1># C-style</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$i</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>done</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Loop over lines (correct way)</span>
+</span></span><span class=line><span class=cl><span class=k>while</span> <span class=nv>IFS</span><span class=o>=</span> <span class=nb>read</span> -r line<span class=p>;</span> <span class=k>do</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$line</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>done</span> &lt; file.txt
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Loop over command output</span>
+</span></span><span class=line><span class=cl><span class=k>while</span> <span class=nv>IFS</span><span class=o>=</span> <span class=nb>read</span> -r line<span class=p>;</span> <span class=k>do</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$line</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>done</span> &lt; &lt;<span class=o>(</span><span class=nb>command</span><span class=o>)</span>
+</span></span></code></pre></div><blockquote><p>Use <code>{1..10}</code> for sequences. Don&rsquo;t use <code>for line in $(cat file)</code> - breaks on spaces. Use <code>while read</code> instead.</p></blockquote><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># While loop</span>
+</span></span><span class=line><span class=cl><span class=k>while</span> <span class=o>[</span> condition <span class=o>]</span><span class=p>;</span> <span class=k>do</span>
+</span></span><span class=line><span class=cl>    commands
+</span></span><span class=line><span class=cl><span class=k>done</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>while</span> true<span class=p>;</span> <span class=k>do</span>              <span class=c1># infinite loop</span>
+</span></span><span class=line><span class=cl>    commands
+</span></span><span class=line><span class=cl>    <span class=nb>break</span>                   <span class=c1># exit loop</span>
+</span></span><span class=line><span class=cl><span class=k>done</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Until loop (opposite of while)</span>
+</span></span><span class=line><span class=cl><span class=k>until</span> <span class=o>[</span> condition <span class=o>]</span><span class=p>;</span> <span class=k>do</span>
+</span></span><span class=line><span class=cl>    commands
+</span></span><span class=line><span class=cl><span class=k>done</span>
+</span></span></code></pre></div><blockquote><p><code>break</code> exits loop. <code>continue</code> skips to next iteration.</p></blockquote><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Select (interactive menu)</span>
+</span></span><span class=line><span class=cl><span class=k>select</span> option in <span class=s2>&#34;Option 1&#34;</span> <span class=s2>&#34;Option 2&#34;</span> <span class=s2>&#34;Quit&#34;</span><span class=p>;</span> <span class=k>do</span>
+</span></span><span class=line><span class=cl>    <span class=k>case</span> <span class=nv>$option</span> in
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;Option 1&#34;</span><span class=o>)</span>
+</span></span><span class=line><span class=cl>            <span class=nb>echo</span> <span class=s2>&#34;Selected 1&#34;</span>
+</span></span><span class=line><span class=cl>            <span class=p>;;</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;Quit&#34;</span><span class=o>)</span>
+</span></span><span class=line><span class=cl>            <span class=nb>break</span>
+</span></span><span class=line><span class=cl>            <span class=p>;;</span>
+</span></span><span class=line><span class=cl>    <span class=k>esac</span>
+</span></span><span class=line><span class=cl><span class=k>done</span>
+</span></span></code></pre></div><blockquote><p><code>select</code> creates numbered menu automatically.</p></blockquote><hr><h2 id=6-functions>6. Functions</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Function definition (two syntaxes)</span>
+</span></span><span class=line><span class=cl>function_name<span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    commands
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>function</span> function_name <span class=o>{</span>
+</span></span><span class=line><span class=cl>    commands
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Function with parameters</span>
+</span></span><span class=line><span class=cl>greet<span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;Hello, </span><span class=nv>$1</span><span class=s2>!&#34;</span>       <span class=c1># $1 is first argument</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span><span class=line><span class=cl>greet <span class=s2>&#34;Alice&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Return values</span>
+</span></span><span class=line><span class=cl>func<span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=m>0</span>                <span class=c1># return exit status (0-255)</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Capture output</span>
+</span></span><span class=line><span class=cl><span class=nv>result</span><span class=o>=</span><span class=k>$(</span>func<span class=k>)</span>              <span class=c1># capture stdout</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Local variables</span>
+</span></span><span class=line><span class=cl>func<span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=nb>local</span> <span class=nv>var</span><span class=o>=</span><span class=s2>&#34;value&#34;</span>       <span class=c1># local to function</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$var</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span></code></pre></div><blockquote><p>Functions use <code>$1</code>, <code>$2</code>, etc. for parameters. Use <code>return</code> for exit status, <code>echo</code> for output values. Use <code>local</code> for local variables.</p></blockquote><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Function examples</span>
+</span></span><span class=line><span class=cl>check_file<span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=nb>local</span> <span class=nv>file</span><span class=o>=</span><span class=nv>$1</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=o>[[</span> -f <span class=s2>&#34;</span><span class=nv>$file</span><span class=s2>&#34;</span> <span class=o>]]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>        <span class=nb>echo</span> <span class=s2>&#34;File exists&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=m>0</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span>
+</span></span><span class=line><span class=cl>        <span class=nb>echo</span> <span class=s2>&#34;File not found&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=m>1</span>
+</span></span><span class=line><span class=cl>    <span class=k>fi</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Call function</span>
+</span></span><span class=line><span class=cl>check_file <span class=s2>&#34;myfile.txt&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> check_file <span class=s2>&#34;myfile.txt&#34;</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;Success&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span></code></pre></div><hr><h2 id=7-arrays>7. Arrays</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Array declaration</span>
+</span></span><span class=line><span class=cl><span class=nv>arr</span><span class=o>=(</span>value1 value2 value3<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=nv>arr</span><span class=o>=(</span><span class=s2>&#34;first&#34;</span> <span class=s2>&#34;second&#34;</span> <span class=s2>&#34;third&#34;</span><span class=o>)</span>
+</span></span><span class=line><span class=cl>arr<span class=o>[</span>0<span class=o>]=</span><span class=s2>&#34;first&#34;</span>              <span class=c1># assign by index</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Declare empty</span>
+</span></span><span class=line><span class=cl><span class=nb>declare</span> -a arr              <span class=c1># indexed array</span>
+</span></span><span class=line><span class=cl><span class=nb>declare</span> -A arr              <span class=c1># associative array (bash 4+)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Array access</span>
+</span></span><span class=line><span class=cl><span class=si>${</span><span class=nv>arr</span><span class=p>[0]</span><span class=si>}</span>                   <span class=c1># first element</span>
+</span></span><span class=line><span class=cl><span class=si>${</span><span class=nv>arr</span><span class=p>[-1]</span><span class=si>}</span>                  <span class=c1># last element</span>
+</span></span><span class=line><span class=cl><span class=si>${</span><span class=nv>arr</span><span class=p>[@]</span><span class=si>}</span>                   <span class=c1># all elements (as separate words)</span>
+</span></span><span class=line><span class=cl><span class=si>${</span><span class=nv>arr</span><span class=p>[*]</span><span class=si>}</span>                   <span class=c1># all elements (as single word)</span>
+</span></span><span class=line><span class=cl><span class=si>${#</span><span class=nv>arr</span><span class=p>[@]</span><span class=si>}</span>                  <span class=c1># number of elements</span>
+</span></span><span class=line><span class=cl><span class=si>${</span><span class=p>!arr[@]</span><span class=si>}</span>                  <span class=c1># all indices</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Array operations</span>
+</span></span><span class=line><span class=cl><span class=nv>arr</span><span class=o>+=(</span>new_value<span class=o>)</span>            <span class=c1># append</span>
+</span></span><span class=line><span class=cl><span class=nb>unset</span> arr<span class=o>[</span>1<span class=o>]</span>                <span class=c1># remove element</span>
+</span></span><span class=line><span class=cl><span class=nv>arr</span><span class=o>=(</span><span class=s2>&#34;</span><span class=si>${</span><span class=nv>arr</span><span class=p>[@]</span><span class=si>}</span><span class=s2>&#34;</span> new<span class=o>)</span>       <span class=c1># append to copy</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Loop over array</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> item in <span class=s2>&#34;</span><span class=si>${</span><span class=nv>arr</span><span class=p>[@]</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>;</span> <span class=k>do</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$item</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>done</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> i in <span class=s2>&#34;</span><span class=si>${</span><span class=p>!arr[@]</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>;</span> <span class=k>do</span>   <span class=c1># with indices</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$i</span><span class=s2>: </span><span class=si>${</span><span class=nv>arr</span><span class=p>[</span><span class=nv>$i</span><span class=p>]</span><span class=si>}</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>done</span>
+</span></span></code></pre></div><blockquote><p>Always quote: <code>"${arr[@]}"</code>. Use <code>@</code> not <code>*</code> to preserve elements.</p></blockquote><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Associative arrays (dictionaries)</span>
+</span></span><span class=line><span class=cl><span class=nb>declare</span> -A dict
+</span></span><span class=line><span class=cl>dict<span class=o>[</span><span class=s2>&#34;key1&#34;</span><span class=o>]=</span><span class=s2>&#34;value1&#34;</span>
+</span></span><span class=line><span class=cl>dict<span class=o>[</span><span class=s2>&#34;key2&#34;</span><span class=o>]=</span><span class=s2>&#34;value2&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Access</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;</span><span class=si>${</span><span class=nv>dict</span><span class=p>[</span><span class=s2>&#34;key1&#34;</span><span class=p>]</span><span class=si>}</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Iterate</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> key in <span class=s2>&#34;</span><span class=si>${</span><span class=p>!dict[@]</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>;</span> <span class=k>do</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$key</span><span class=s2>: </span><span class=si>${</span><span class=nv>dict</span><span class=p>[</span><span class=nv>$key</span><span class=p>]</span><span class=si>}</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>done</span>
+</span></span></code></pre></div><blockquote><p>Associative arrays require <code>declare -A</code>. Bash 4+ only.</p></blockquote><hr><h2 id=8-text-processing-commands>8. Text Processing Commands</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># cat - concatenate and display</span>
+</span></span><span class=line><span class=cl>cat file.txt                <span class=c1># display file</span>
+</span></span><span class=line><span class=cl>cat file1 file2 &gt; out       <span class=c1># concatenate</span>
+</span></span><span class=line><span class=cl>cat -n file.txt             <span class=c1># with line numbers</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># head/tail - show beginning/end</span>
+</span></span><span class=line><span class=cl>head file.txt               <span class=c1># first 10 lines</span>
+</span></span><span class=line><span class=cl>head -n <span class=m>5</span> file.txt          <span class=c1># first 5 lines</span>
+</span></span><span class=line><span class=cl>tail file.txt               <span class=c1># last 10 lines</span>
+</span></span><span class=line><span class=cl>tail -n <span class=m>5</span> file.txt          <span class=c1># last 5 lines</span>
+</span></span><span class=line><span class=cl>tail -f file.txt            <span class=c1># follow (real-time updates)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># wc - word count</span>
+</span></span><span class=line><span class=cl>wc file.txt                 <span class=c1># lines, words, bytes</span>
+</span></span><span class=line><span class=cl>wc -l file.txt              <span class=c1># count lines</span>
+</span></span><span class=line><span class=cl>wc -w file.txt              <span class=c1># count words</span>
+</span></span><span class=line><span class=cl>wc -c file.txt              <span class=c1># count bytes</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># sort - sort lines</span>
+</span></span><span class=line><span class=cl>sort file.txt               <span class=c1># alphabetically</span>
+</span></span><span class=line><span class=cl>sort -n file.txt            <span class=c1># numerically</span>
+</span></span><span class=line><span class=cl>sort -r file.txt            <span class=c1># reverse</span>
+</span></span><span class=line><span class=cl>sort -u file.txt            <span class=c1># unique (remove duplicates)</span>
+</span></span><span class=line><span class=cl>sort -k2 file.txt           <span class=c1># sort by 2nd column</span>
+</span></span><span class=line><span class=cl>sort -t<span class=s1>&#39;,&#39;</span> -k2 file.csv     <span class=c1># delimiter and column</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># uniq - remove adjacent duplicates (use with sort)</span>
+</span></span><span class=line><span class=cl>sort file.txt <span class=p>|</span> uniq        <span class=c1># unique lines</span>
+</span></span><span class=line><span class=cl>uniq -c file.txt            <span class=c1># count occurrences</span>
+</span></span><span class=line><span class=cl>uniq -d file.txt            <span class=c1># only duplicates</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># cut - extract columns</span>
+</span></span><span class=line><span class=cl>cut -f1 file.txt            <span class=c1># first field (tab-delimited)</span>
+</span></span><span class=line><span class=cl>cut -f1,3 file.txt          <span class=c1># fields 1 and 3</span>
+</span></span><span class=line><span class=cl>cut -d<span class=s1>&#39;,&#39;</span> -f2 file.csv      <span class=c1># 2nd field (comma-delimited)</span>
+</span></span><span class=line><span class=cl>cut -c1-10 file.txt         <span class=c1># characters 1-10</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># paste - merge lines</span>
+</span></span><span class=line><span class=cl>paste file1 file2           <span class=c1># side by side (tab-separated)</span>
+</span></span><span class=line><span class=cl>paste -d<span class=s1>&#39;,&#39;</span> file1 file2     <span class=c1># comma-separated</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># tr - translate/delete characters</span>
+</span></span><span class=line><span class=cl>tr <span class=s1>&#39;a-z&#39;</span> <span class=s1>&#39;A-Z&#39;</span> &lt; file       <span class=c1># lowercase to uppercase</span>
+</span></span><span class=line><span class=cl>tr -d <span class=s1>&#39;0-9&#39;</span> &lt; file          <span class=c1># delete digits</span>
+</span></span><span class=line><span class=cl>tr -s <span class=s1>&#39; &#39;</span>                   <span class=c1># squeeze repeated spaces</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># grep - search patterns</span>
+</span></span><span class=line><span class=cl>grep <span class=s2>&#34;pattern&#34;</span> file.txt     <span class=c1># search for pattern</span>
+</span></span><span class=line><span class=cl>grep -i <span class=s2>&#34;pattern&#34;</span> file      <span class=c1># case-insensitive</span>
+</span></span><span class=line><span class=cl>grep -v <span class=s2>&#34;pattern&#34;</span> file      <span class=c1># invert match (exclude)</span>
+</span></span><span class=line><span class=cl>grep -n <span class=s2>&#34;pattern&#34;</span> file      <span class=c1># with line numbers</span>
+</span></span><span class=line><span class=cl>grep -c <span class=s2>&#34;pattern&#34;</span> file      <span class=c1># count matches</span>
+</span></span><span class=line><span class=cl>grep -r <span class=s2>&#34;pattern&#34;</span> dir/      <span class=c1># recursive</span>
+</span></span><span class=line><span class=cl>grep -E <span class=s2>&#34;regex&#34;</span> file        <span class=c1># extended regex</span>
+</span></span><span class=line><span class=cl>grep -P <span class=s2>&#34;regex&#34;</span> file        <span class=c1># Perl regex</span>
+</span></span><span class=line><span class=cl>grep -o <span class=s2>&#34;pattern&#34;</span> file      <span class=c1># only matching part</span>
+</span></span><span class=line><span class=cl>grep -A <span class=m>3</span> <span class=s2>&#34;pattern&#34;</span> file    <span class=c1># 3 lines after match</span>
+</span></span><span class=line><span class=cl>grep -B <span class=m>3</span> <span class=s2>&#34;pattern&#34;</span> file    <span class=c1># 3 lines before match</span>
+</span></span><span class=line><span class=cl>grep -C <span class=m>3</span> <span class=s2>&#34;pattern&#34;</span> file    <span class=c1># 3 lines around match</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># sed - stream editor</span>
+</span></span><span class=line><span class=cl>sed <span class=s1>&#39;s/old/new/&#39;</span> file       <span class=c1># replace first occurrence per line</span>
+</span></span><span class=line><span class=cl>sed <span class=s1>&#39;s/old/new/g&#39;</span> file      <span class=c1># replace all occurrences</span>
+</span></span><span class=line><span class=cl>sed <span class=s1>&#39;s/old/new/2&#39;</span> file      <span class=c1># replace 2nd occurrence</span>
+</span></span><span class=line><span class=cl>sed -i <span class=s1>&#39;s/old/new/g&#39;</span> file   <span class=c1># in-place edit</span>
+</span></span><span class=line><span class=cl>sed -n <span class=s1>&#39;10,20p&#39;</span> file        <span class=c1># print lines 10-20</span>
+</span></span><span class=line><span class=cl>sed <span class=s1>&#39;5d&#39;</span> file               <span class=c1># delete line 5</span>
+</span></span><span class=line><span class=cl>sed <span class=s1>&#39;/pattern/d&#39;</span> file       <span class=c1># delete matching lines</span>
+</span></span><span class=line><span class=cl>sed <span class=s1>&#39;s/^/PREFIX/&#39;</span> file      <span class=c1># add prefix to lines</span>
+</span></span><span class=line><span class=cl>sed <span class=s1>&#39;s/$/SUFFIX/&#39;</span> file      <span class=c1># add suffix to lines</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># awk - pattern scanning and processing</span>
+</span></span><span class=line><span class=cl>awk <span class=s1>&#39;{print $1}&#39;</span> file       <span class=c1># print first column</span>
+</span></span><span class=line><span class=cl>awk <span class=s1>&#39;{print $1, $3}&#39;</span> file   <span class=c1># print columns 1 and 3</span>
+</span></span><span class=line><span class=cl>awk -F<span class=s1>&#39;,&#39;</span> <span class=s1>&#39;{print $2}&#39;</span> file <span class=c1># custom delimiter</span>
+</span></span><span class=line><span class=cl>awk <span class=s1>&#39;$3 &gt; 100&#39;</span> file         <span class=c1># filter rows</span>
+</span></span><span class=line><span class=cl>awk <span class=s1>&#39;{sum+=$1} END {print sum}&#39;</span> file  <span class=c1># sum column</span>
+</span></span><span class=line><span class=cl>awk <span class=s1>&#39;NR==10&#39;</span> file           <span class=c1># print line 10</span>
+</span></span><span class=line><span class=cl>awk <span class=s1>&#39;NR&gt;=10 &amp;&amp; NR&lt;=20&#39;</span> file <span class=c1># print lines 10-20</span>
+</span></span><span class=line><span class=cl>awk <span class=s1>&#39;/pattern/&#39;</span> file        <span class=c1># print matching lines</span>
+</span></span><span class=line><span class=cl>awk <span class=s1>&#39;{print NF}&#39;</span> file       <span class=c1># number of fields per line</span>
+</span></span><span class=line><span class=cl>awk <span class=s1>&#39;{print NR, $0}&#39;</span> file   <span class=c1># line number and line</span>
+</span></span></code></pre></div><blockquote><p><code>grep</code> for searching, <code>sed</code> for simple substitution, <code>awk</code> for column processing. Each has unique strengths.</p></blockquote><hr><h2 id=9-file-operations>9. File Operations</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># ls - list files</span>
+</span></span><span class=line><span class=cl>ls                      <span class=c1># list files</span>
+</span></span><span class=line><span class=cl>ls -l                   <span class=c1># long format (permissions, size, date)</span>
+</span></span><span class=line><span class=cl>ls -a                   <span class=c1># include hidden files</span>
+</span></span><span class=line><span class=cl>ls -h                   <span class=c1># human-readable sizes</span>
+</span></span><span class=line><span class=cl>ls -t                   <span class=c1># sort by time</span>
+</span></span><span class=line><span class=cl>ls -r                   <span class=c1># reverse order</span>
+</span></span><span class=line><span class=cl>ls -R                   <span class=c1># recursive</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># cd - change directory</span>
+</span></span><span class=line><span class=cl><span class=nb>cd</span> /path/to/dir         <span class=c1># absolute path</span>
+</span></span><span class=line><span class=cl><span class=nb>cd</span> ../                  <span class=c1># parent directory</span>
+</span></span><span class=line><span class=cl><span class=nb>cd</span> ~                    <span class=c1># home directory</span>
+</span></span><span class=line><span class=cl><span class=nb>cd</span> -                    <span class=c1># previous directory</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># pwd - print working directory</span>
+</span></span><span class=line><span class=cl><span class=nb>pwd</span>                     <span class=c1># current directory</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># mkdir - make directory</span>
+</span></span><span class=line><span class=cl>mkdir dir               <span class=c1># create directory</span>
+</span></span><span class=line><span class=cl>mkdir -p dir/subdir     <span class=c1># create nested directories</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># rm - remove</span>
+</span></span><span class=line><span class=cl>rm file                 <span class=c1># remove file</span>
+</span></span><span class=line><span class=cl>rm -f file              <span class=c1># force (no confirmation)</span>
+</span></span><span class=line><span class=cl>rm -r dir               <span class=c1># remove directory recursively</span>
+</span></span><span class=line><span class=cl>rm -rf dir              <span class=c1># force remove directory</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># cp - copy</span>
+</span></span><span class=line><span class=cl>cp src dest             <span class=c1># copy file</span>
+</span></span><span class=line><span class=cl>cp -r src dest          <span class=c1># copy directory</span>
+</span></span><span class=line><span class=cl>cp -a src dest          <span class=c1># preserve attributes</span>
+</span></span><span class=line><span class=cl>cp -u src dest          <span class=c1># update (copy if newer)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># mv - move/rename</span>
+</span></span><span class=line><span class=cl>mv src dest             <span class=c1># move or rename</span>
+</span></span><span class=line><span class=cl>mv file dir/            <span class=c1># move to directory</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># touch - create empty file or update timestamp</span>
+</span></span><span class=line><span class=cl>touch file              <span class=c1># create if not exists</span>
+</span></span><span class=line><span class=cl>touch -t <span class=m>202301011200</span> file  <span class=c1># set specific time</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># ln - create link</span>
+</span></span><span class=line><span class=cl>ln -s target link       <span class=c1># symbolic link</span>
+</span></span><span class=line><span class=cl>ln target link          <span class=c1># hard link</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># find - search for files</span>
+</span></span><span class=line><span class=cl>find . -name <span class=s2>&#34;*.txt&#34;</span>        <span class=c1># find by name</span>
+</span></span><span class=line><span class=cl>find . -type f              <span class=c1># files only</span>
+</span></span><span class=line><span class=cl>find . -type d              <span class=c1># directories only</span>
+</span></span><span class=line><span class=cl>find . -size +1M            <span class=c1># larger than 1MB</span>
+</span></span><span class=line><span class=cl>find . -mtime -7            <span class=c1># modified in last 7 days</span>
+</span></span><span class=line><span class=cl>find . -name <span class=s2>&#34;*.txt&#34;</span> -exec cat <span class=o>{}</span> <span class=se>\;</span>    <span class=c1># execute command</span>
+</span></span><span class=line><span class=cl>find . -name <span class=s2>&#34;*.txt&#34;</span> -delete            <span class=c1># delete matches</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># locate - fast file search (uses database)</span>
+</span></span><span class=line><span class=cl>locate filename         <span class=c1># find file</span>
+</span></span><span class=line><span class=cl>updatedb                <span class=c1># update database (run as root)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># which - locate command</span>
+</span></span><span class=line><span class=cl>which python            <span class=c1># show path to python</span>
+</span></span><span class=line><span class=cl>which -a python         <span class=c1># show all instances</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># file - determine file type</span>
+</span></span><span class=line><span class=cl>file filename           <span class=c1># show file type</span>
+</span></span></code></pre></div><blockquote><p><code>find</code> is powerful but slow. <code>locate</code> is fast but requires updated database.</p></blockquote><hr><h2 id=10-permissions-and-ownership>10. Permissions and Ownership</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># chmod - change permissions</span>
+</span></span><span class=line><span class=cl>chmod <span class=m>755</span> file          <span class=c1># rwxr-xr-x</span>
+</span></span><span class=line><span class=cl>chmod +x file           <span class=c1># add execute</span>
+</span></span><span class=line><span class=cl>chmod -w file           <span class=c1># remove write</span>
+</span></span><span class=line><span class=cl>chmod u+x file          <span class=c1># user: add execute</span>
+</span></span><span class=line><span class=cl>chmod g-w file          <span class=c1># group: remove write</span>
+</span></span><span class=line><span class=cl>chmod o+r file          <span class=c1># others: add read</span>
+</span></span><span class=line><span class=cl>chmod a+x file          <span class=c1># all: add execute</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Permission numbers</span>
+</span></span><span class=line><span class=cl><span class=c1># 4 = read (r)</span>
+</span></span><span class=line><span class=cl><span class=c1># 2 = write (w)</span>
+</span></span><span class=line><span class=cl><span class=c1># 1 = execute (x)</span>
+</span></span><span class=line><span class=cl><span class=c1># 7 = rwx, 6 = rw-, 5 = r-x, 4 = r--, etc.</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># chown - change owner</span>
+</span></span><span class=line><span class=cl>chown user file         <span class=c1># change owner</span>
+</span></span><span class=line><span class=cl>chown user:group file   <span class=c1># change owner and group</span>
+</span></span><span class=line><span class=cl>chown -R user dir       <span class=c1># recursive</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># chgrp - change group</span>
+</span></span><span class=line><span class=cl>chgrp group file        <span class=c1># change group</span>
+</span></span></code></pre></div><blockquote><p>Permissions: user-group-others. Each has read-write-execute (rwx). <code>755</code> means <code>rwxr-xr-x</code>.</p></blockquote><hr><h2 id=11-process-management>11. Process Management</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># ps - process status</span>
+</span></span><span class=line><span class=cl>ps                      <span class=c1># current user processes</span>
+</span></span><span class=line><span class=cl>ps aux                  <span class=c1># all processes (BSD style)</span>
+</span></span><span class=line><span class=cl>ps -ef                  <span class=c1># all processes (Unix style)</span>
+</span></span><span class=line><span class=cl>ps -u user              <span class=c1># user&#39;s processes</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># top - dynamic process viewer</span>
+</span></span><span class=line><span class=cl>top                     <span class=c1># interactive view</span>
+</span></span><span class=line><span class=cl>htop                    <span class=c1># enhanced version (if installed)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># kill - terminate process</span>
+</span></span><span class=line><span class=cl><span class=nb>kill</span> PID                <span class=c1># graceful termination</span>
+</span></span><span class=line><span class=cl><span class=nb>kill</span> -9 PID             <span class=c1># force kill</span>
+</span></span><span class=line><span class=cl><span class=nb>kill</span> -15 PID            <span class=c1># SIGTERM (default)</span>
+</span></span><span class=line><span class=cl>killall name            <span class=c1># kill by name</span>
+</span></span><span class=line><span class=cl>pkill pattern           <span class=c1># kill by pattern</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Background/foreground</span>
+</span></span><span class=line><span class=cl><span class=nb>command</span> <span class=p>&amp;</span>               <span class=c1># run in background</span>
+</span></span><span class=line><span class=cl><span class=nb>jobs</span>                    <span class=c1># list background jobs</span>
+</span></span><span class=line><span class=cl><span class=nb>fg</span> %1                   <span class=c1># bring job 1 to foreground</span>
+</span></span><span class=line><span class=cl><span class=nb>bg</span> %1                   <span class=c1># resume job 1 in background</span>
+</span></span><span class=line><span class=cl>Ctrl+Z                  <span class=c1># suspend current job</span>
+</span></span><span class=line><span class=cl>Ctrl+C                  <span class=c1># terminate current job</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># nohup - run immune to hangups</span>
+</span></span><span class=line><span class=cl>nohup <span class=nb>command</span> <span class=p>&amp;</span>         <span class=c1># keeps running after logout</span>
+</span></span></code></pre></div><blockquote><p><code>&</code> runs in background. <code>kill -9</code> is last resort. Use <code>htop</code> if available.</p></blockquote><hr><h2 id=12-networking>12. Networking</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># wget - download files</span>
+</span></span><span class=line><span class=cl>wget url                    <span class=c1># download file</span>
+</span></span><span class=line><span class=cl>wget -O output url          <span class=c1># save as output</span>
+</span></span><span class=line><span class=cl>wget -c url                 <span class=c1># continue incomplete download</span>
+</span></span><span class=line><span class=cl>wget -r url                 <span class=c1># recursive download</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># curl - transfer data</span>
+</span></span><span class=line><span class=cl>curl url                    <span class=c1># display content</span>
+</span></span><span class=line><span class=cl>curl -o file url            <span class=c1># save to file</span>
+</span></span><span class=line><span class=cl>curl -O url                 <span class=c1># save with original name</span>
+</span></span><span class=line><span class=cl>curl -I url                 <span class=c1># show headers only</span>
+</span></span><span class=line><span class=cl>curl -X POST url            <span class=c1># POST request</span>
+</span></span><span class=line><span class=cl>curl -d <span class=s2>&#34;data&#34;</span> url          <span class=c1># send data</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># ssh - secure shell</span>
+</span></span><span class=line><span class=cl>ssh user@host               <span class=c1># connect to host</span>
+</span></span><span class=line><span class=cl>ssh -p port user@host       <span class=c1># specify port</span>
+</span></span><span class=line><span class=cl>ssh -i keyfile user@host    <span class=c1># use key file</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># scp - secure copy</span>
+</span></span><span class=line><span class=cl>scp file user@host:/path    <span class=c1># copy to remote</span>
+</span></span><span class=line><span class=cl>scp user@host:/path file    <span class=c1># copy from remote</span>
+</span></span><span class=line><span class=cl>scp -r dir user@host:/path  <span class=c1># copy directory</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># rsync - sync files</span>
+</span></span><span class=line><span class=cl>rsync -av src dest          <span class=c1># archive mode, verbose</span>
+</span></span><span class=line><span class=cl>rsync -av --delete src dest <span class=c1># delete extraneous files</span>
+</span></span><span class=line><span class=cl>rsync -avz src user@host:dest  <span class=c1># compress during transfer</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># ping - test connectivity</span>
+</span></span><span class=line><span class=cl>ping host                   <span class=c1># ping host</span>
+</span></span><span class=line><span class=cl>ping -c <span class=m>4</span> host              <span class=c1># send 4 packets</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># netstat - network statistics</span>
+</span></span><span class=line><span class=cl>netstat -tuln               <span class=c1># listening ports</span>
+</span></span><span class=line><span class=cl>netstat -an                 <span class=c1># all connections</span>
+</span></span></code></pre></div><blockquote><p>Use <code>curl</code> for APIs, <code>wget</code> for downloads. <code>rsync</code> is better than <code>scp</code> for large transfers.</p></blockquote><hr><h2 id=13-archives-and-compression>13. Archives and Compression</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># tar - archive files</span>
+</span></span><span class=line><span class=cl>tar -cf archive.tar files   <span class=c1># create archive</span>
+</span></span><span class=line><span class=cl>tar -czf archive.tar.gz files  <span class=c1># create gzip compressed</span>
+</span></span><span class=line><span class=cl>tar -cjf archive.tar.bz2 files <span class=c1># create bzip2 compressed</span>
+</span></span><span class=line><span class=cl>tar -xf archive.tar         <span class=c1># extract</span>
+</span></span><span class=line><span class=cl>tar -xzf archive.tar.gz     <span class=c1># extract gzip</span>
+</span></span><span class=line><span class=cl>tar -xjf archive.tar.bz2    <span class=c1># extract bzip2</span>
+</span></span><span class=line><span class=cl>tar -tf archive.tar         <span class=c1># list contents</span>
+</span></span><span class=line><span class=cl>tar -xf archive.tar -C dir  <span class=c1># extract to directory</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># gzip/gunzip - compress files</span>
+</span></span><span class=line><span class=cl>gzip file                   <span class=c1># compress (creates file.gz)</span>
+</span></span><span class=line><span class=cl>gzip -d file.gz             <span class=c1># decompress</span>
+</span></span><span class=line><span class=cl>gunzip file.gz              <span class=c1># decompress</span>
+</span></span><span class=line><span class=cl>gzip -c file &gt; file.gz      <span class=c1># keep original</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># zip/unzip</span>
+</span></span><span class=line><span class=cl>zip archive.zip files       <span class=c1># create zip</span>
+</span></span><span class=line><span class=cl>zip -r archive.zip dir      <span class=c1># compress directory</span>
+</span></span><span class=line><span class=cl>unzip archive.zip           <span class=c1># extract</span>
+</span></span><span class=line><span class=cl>unzip -l archive.zip        <span class=c1># list contents</span>
+</span></span></code></pre></div><blockquote><p><code>tar</code> for archiving, <code>gzip</code> for compression. <code>.tar.gz</code> (or <code>.tgz</code>) is common. <code>-c</code> create, <code>-x</code> extract, <code>-f</code> file, <code>-z</code> gzip, <code>-j</code> bzip2, <code>-v</code> verbose.</p></blockquote><hr><h2 id=14-system-information>14. System Information</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># System</span>
+</span></span><span class=line><span class=cl>uname -a                <span class=c1># all system info</span>
+</span></span><span class=line><span class=cl>uname -r                <span class=c1># kernel version</span>
+</span></span><span class=line><span class=cl>hostname                <span class=c1># system name</span>
+</span></span><span class=line><span class=cl>uptime                  <span class=c1># uptime and load</span>
+</span></span><span class=line><span class=cl>date                    <span class=c1># current date/time</span>
+</span></span><span class=line><span class=cl>cal                     <span class=c1># calendar</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Disk usage</span>
+</span></span><span class=line><span class=cl>df -h                   <span class=c1># disk space (human-readable)</span>
+</span></span><span class=line><span class=cl>du -h dir               <span class=c1># directory size</span>
+</span></span><span class=line><span class=cl>du -sh dir              <span class=c1># summary only</span>
+</span></span><span class=line><span class=cl>du -h --max-depth<span class=o>=</span><span class=m>1</span>     <span class=c1># one level deep</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Memory</span>
+</span></span><span class=line><span class=cl>free -h                 <span class=c1># memory usage</span>
+</span></span><span class=line><span class=cl>cat /proc/meminfo       <span class=c1># detailed memory info</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># CPU</span>
+</span></span><span class=line><span class=cl>lscpu                   <span class=c1># CPU info</span>
+</span></span><span class=line><span class=cl>cat /proc/cpuinfo       <span class=c1># detailed CPU info</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Users</span>
+</span></span><span class=line><span class=cl>whoami                  <span class=c1># current user</span>
+</span></span><span class=line><span class=cl>who                     <span class=c1># logged in users</span>
+</span></span><span class=line><span class=cl>w                       <span class=c1># who and what they&#39;re doing</span>
+</span></span><span class=line><span class=cl>id                      <span class=c1># user/group IDs</span>
+</span></span><span class=line><span class=cl>groups                  <span class=c1># user&#39;s groups</span>
+</span></span></code></pre></div><blockquote><p><code>-h</code> flag usually means &ldquo;human-readable&rdquo; (KB, MB, GB instead of bytes).</p></blockquote><hr><h2 id=15-scripting-best-practices>15. Scripting Best Practices</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=cp>#!/usr/bin/env bash
+</span></span></span><span class=line><span class=cl><span class=c1># Script description</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Exit on error, undefined variables, pipe failures</span>
+</span></span><span class=line><span class=cl><span class=nb>set</span> -euo pipefail
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Enable debug mode</span>
+</span></span><span class=line><span class=cl><span class=nb>set</span> -x                  <span class=c1># print commands</span>
+</span></span><span class=line><span class=cl><span class=nb>set</span> -v                  <span class=c1># print input</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Functions first</span>
+</span></span><span class=line><span class=cl>main<span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1># Main logic</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Error handling</span>
+</span></span><span class=line><span class=cl>error_exit<span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;Error: </span><span class=nv>$1</span><span class=s2>&#34;</span> &gt;<span class=p>&amp;</span><span class=m>2</span>
+</span></span><span class=line><span class=cl>    <span class=nb>exit</span> <span class=m>1</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Check arguments</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[[</span> <span class=nv>$#</span> -lt <span class=m>1</span> <span class=o>]]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;Usage: </span><span class=nv>$0</span><span class=s2> &lt;arg&gt;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nb>exit</span> <span class=m>1</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Variable validation</span>
+</span></span><span class=line><span class=cl><span class=o>[[</span> -z <span class=s2>&#34;</span><span class=si>${</span><span class=nv>VAR</span><span class=k>:-</span><span class=si>}</span><span class=s2>&#34;</span> <span class=o>]]</span> <span class=o>&amp;&amp;</span> error_exit <span class=s2>&#34;VAR not set&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Cleanup on exit</span>
+</span></span><span class=line><span class=cl>cleanup<span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    rm -f /tmp/<span class=nv>$$</span>_*
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span><span class=line><span class=cl><span class=nb>trap</span> cleanup EXIT
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Run main</span>
+</span></span><span class=line><span class=cl>main <span class=s2>&#34;</span><span class=nv>$@</span><span class=s2>&#34;</span>
+</span></span></code></pre></div><blockquote><p>Use <code>set -euo pipefail</code> for robust scripts. Always quote variables. Check arguments. Use functions. Clean up with trap.</p></blockquote><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Script template</span>
+</span></span><span class=line><span class=cl><span class=c1>#!/usr/bin/env bash</span>
+</span></span><span class=line><span class=cl><span class=nb>set</span> -euo pipefail
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>readonly</span> <span class=nv>SCRIPT_DIR</span><span class=o>=</span><span class=s2>&#34;</span><span class=k>$(</span><span class=nb>cd</span> <span class=s2>&#34;</span><span class=k>$(</span>dirname <span class=s2>&#34;</span><span class=si>${</span><span class=nv>BASH_SOURCE</span><span class=p>[0]</span><span class=si>}</span><span class=s2>&#34;</span><span class=k>)</span><span class=s2>&#34;</span> <span class=o>&amp;&amp;</span> <span class=nb>pwd</span><span class=k>)</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>readonly</span> <span class=nv>SCRIPT_NAME</span><span class=o>=</span><span class=s2>&#34;</span><span class=k>$(</span>basename <span class=s2>&#34;</span><span class=nv>$0</span><span class=s2>&#34;</span><span class=k>)</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>usage<span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    cat <span class=s>&lt;&lt; EOF
+</span></span></span><span class=line><span class=cl><span class=s>Usage: $SCRIPT_NAME [OPTIONS] &lt;input&gt;
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>Options:
+</span></span></span><span class=line><span class=cl><span class=s>    -h, --help      Show this help
+</span></span></span><span class=line><span class=cl><span class=s>    -v, --verbose   Verbose output
+</span></span></span><span class=line><span class=cl><span class=s>    -o, --output    Output file
+</span></span></span><span class=line><span class=cl><span class=s>EOF</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>main<span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=nb>local</span> <span class=nv>input</span><span class=o>=</span><span class=nv>$1</span>
+</span></span><span class=line><span class=cl>    <span class=nb>local</span> <span class=nv>output</span><span class=o>=</span><span class=si>${</span><span class=nv>2</span><span class=k>:-</span><span class=nv>output</span><span class=p>.txt</span><span class=si>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># Your logic here</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;Processing </span><span class=nv>$input</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Parse options</span>
+</span></span><span class=line><span class=cl><span class=k>while</span> <span class=o>[[</span> <span class=nv>$#</span> -gt <span class=m>0</span> <span class=o>]]</span><span class=p>;</span> <span class=k>do</span>
+</span></span><span class=line><span class=cl>    <span class=k>case</span> <span class=nv>$1</span> in
+</span></span><span class=line><span class=cl>        -h<span class=p>|</span>--help<span class=o>)</span>
+</span></span><span class=line><span class=cl>            usage
+</span></span><span class=line><span class=cl>            <span class=nb>exit</span> <span class=m>0</span>
+</span></span><span class=line><span class=cl>            <span class=p>;;</span>
+</span></span><span class=line><span class=cl>        -v<span class=p>|</span>--verbose<span class=o>)</span>
+</span></span><span class=line><span class=cl>            <span class=nv>VERBOSE</span><span class=o>=</span><span class=m>1</span>
+</span></span><span class=line><span class=cl>            <span class=nb>shift</span>
+</span></span><span class=line><span class=cl>            <span class=p>;;</span>
+</span></span><span class=line><span class=cl>        -o<span class=p>|</span>--output<span class=o>)</span>
+</span></span><span class=line><span class=cl>            <span class=nv>OUTPUT</span><span class=o>=</span><span class=nv>$2</span>
+</span></span><span class=line><span class=cl>            <span class=nb>shift</span> <span class=m>2</span>
+</span></span><span class=line><span class=cl>            <span class=p>;;</span>
+</span></span><span class=line><span class=cl>        *<span class=o>)</span>
+</span></span><span class=line><span class=cl>            <span class=nv>INPUT</span><span class=o>=</span><span class=nv>$1</span>
+</span></span><span class=line><span class=cl>            <span class=nb>shift</span>
+</span></span><span class=line><span class=cl>            <span class=p>;;</span>
+</span></span><span class=line><span class=cl>    <span class=k>esac</span>
+</span></span><span class=line><span class=cl><span class=k>done</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Check required args</span>
+</span></span><span class=line><span class=cl><span class=o>[[</span> -z <span class=s2>&#34;</span><span class=si>${</span><span class=nv>INPUT</span><span class=k>:-</span><span class=si>}</span><span class=s2>&#34;</span> <span class=o>]]</span> <span class=o>&amp;&amp;</span> <span class=o>{</span> usage<span class=p>;</span> <span class=nb>exit</span> 1<span class=p>;</span> <span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>main <span class=s2>&#34;</span><span class=nv>$INPUT</span><span class=s2>&#34;</span>
+</span></span></code></pre></div><hr><h2 id=common-patterns-for-bioinformatics>Common Patterns for Bioinformatics</h2><h3 id=process-fasta-files>Process FASTA files</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Count sequences</span>
+</span></span><span class=line><span class=cl>grep -c <span class=s2>&#34;^&gt;&#34;</span> file.fasta
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Extract sequence IDs</span>
+</span></span><span class=line><span class=cl>grep <span class=s2>&#34;^&gt;&#34;</span> file.fasta <span class=p>|</span> sed <span class=s1>&#39;s/^&gt;//&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Get sequence lengths</span>
+</span></span><span class=line><span class=cl>awk <span class=s1>&#39;/^&gt;/ {if (seqlen){print seqlen}; seqlen=0; next} {seqlen+=length($0)} END {print seqlen}&#39;</span> file.fasta
+</span></span></code></pre></div><h3 id=process-fastq-files>Process FASTQ files</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Count reads</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=k>$(($(</span>wc -l &lt; file.fastq<span class=k>)</span> <span class=o>/</span> <span class=m>4</span><span class=k>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Extract reads</span>
+</span></span><span class=line><span class=cl>sed -n <span class=s1>&#39;2~4p&#39;</span> file.fastq
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Extract quality scores</span>
+</span></span><span class=line><span class=cl>sed -n <span class=s1>&#39;4~4p&#39;</span> file.fastq
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Convert FASTQ to FASTA</span>
+</span></span><span class=line><span class=cl>sed -n <span class=s1>&#39;1~4s/^@/&gt;/p;2~4p&#39;</span> file.fastq &gt; file.fasta
+</span></span></code></pre></div><h3 id=process-delimited-files>Process delimited files</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># CSV/TSV operations</span>
+</span></span><span class=line><span class=cl>cut -f1,3 -d<span class=s1>$&#39;\t&#39;</span> file.tsv          <span class=c1># extract columns</span>
+</span></span><span class=line><span class=cl>awk -F<span class=s1>&#39;\t&#39;</span> <span class=s1>&#39;$3 &gt; 100&#39;</span> file.tsv      <span class=c1># filter rows</span>
+</span></span><span class=line><span class=cl>sort -t<span class=s1>$&#39;\t&#39;</span> -k2,2n file.tsv        <span class=c1># sort by column</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Count columns</span>
+</span></span><span class=line><span class=cl>awk -F<span class=s1>&#39;\t&#39;</span> <span class=s1>&#39;{print NF; exit}&#39;</span> file.tsv
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Remove duplicates based on column</span>
+</span></span><span class=line><span class=cl>sort -t<span class=s1>$&#39;\t&#39;</span> -k1,1 -u file.tsv
+</span></span></code></pre></div><h3 id=parallel-processing>Parallel processing</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># GNU parallel (if installed)</span>
+</span></span><span class=line><span class=cl>parallel -j <span class=m>4</span> process_file <span class=o>{}</span> ::: *.fastq
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Simple loop with background jobs</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> file in *.txt<span class=p>;</span> <span class=k>do</span>
+</span></span><span class=line><span class=cl>    process <span class=s2>&#34;</span><span class=nv>$file</span><span class=s2>&#34;</span> <span class=p>&amp;</span>
+</span></span><span class=line><span class=cl>    <span class=c1># Limit concurrent jobs</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=o>[[</span> <span class=k>$(</span><span class=nb>jobs</span> -r -p <span class=p>|</span> wc -l<span class=k>)</span> -ge <span class=m>4</span> <span class=o>]]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>        <span class=nb>wait</span> -n
+</span></span><span class=line><span class=cl>    <span class=k>fi</span>
+</span></span><span class=line><span class=cl><span class=k>done</span>
+</span></span><span class=line><span class=cl><span class=nb>wait</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># xargs parallel</span>
+</span></span><span class=line><span class=cl>find . -name <span class=s2>&#34;*.txt&#34;</span> <span class=p>|</span> xargs -P <span class=m>4</span> -I <span class=o>{}</span> process <span class=o>{}</span>
+</span></span></code></pre></div><hr><h2 id=quick-reference>Quick Reference</h2><h3 id=special-characters>Special Characters</h3><ul><li><code>$</code> - variable prefix, command substitution end</li><li><code>#</code> - comment, string length, parameter patterns</li><li><code>&</code> - background job</li><li><code>*</code> - wildcard (any characters)</li><li><code>?</code> - wildcard (single character)</li><li><code>[ ]</code> - test command, character class</li><li><code>|</code> - pipe</li><li><code>></code> - redirect output</li><li><code>&lt;</code> - redirect input</li><li><code>;</code> - command separator</li><li><code>&&</code> - AND operator</li><li><code>||</code> - OR operator</li><li><code>!</code> - negation, history</li><li><code>~</code> - home directory</li><li><code>`</code> - command substitution (old)</li><li><code>$( )</code> - command substitution (new)</li></ul><h3 id=shortcuts>Shortcuts</h3><ul><li><code>Ctrl+C</code> - interrupt (SIGINT)</li><li><code>Ctrl+Z</code> - suspend (SIGTSTP)</li><li><code>Ctrl+D</code> - EOF / exit shell</li><li><code>Ctrl+L</code> - clear screen</li><li><code>Ctrl+A</code> - beginning of line</li><li><code>Ctrl+E</code> - end of line</li><li><code>Ctrl+K</code> - delete to end of line</li><li><code>Ctrl+U</code> - delete to beginning of line</li><li><code>Ctrl+W</code> - delete word backward</li><li><code>Ctrl+R</code> - reverse search history</li><li><code>!!</code> - previous command</li><li><code>!$</code> - last argument of previous command</li><li><code>!*</code> - all arguments of previous command</li></ul><h3 id=exit-codes>Exit Codes</h3><ul><li><code>0</code> - success</li><li><code>1</code> - general error</li><li><code>2</code> - misuse of shell command</li><li><code>126</code> - command cannot execute</li><li><code>127</code> - command not found</li><li><code>130</code> - terminated by Ctrl+C</li><li><code>255</code> - exit status out of range</li></ul></section><footer class="article-meta article-footer"><section class=article-tags><a href=/tags/bash/>Bash</a>
+<a href=/tags/shell/>Shell</a>
+<a href=/tags/linux/>Linux</a>
+<a href=/tags/cheatsheet/>Cheatsheet</a></section></footer><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css integrity=sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js integrity=sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js integrity=sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05 crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{const e=[".main-article",".widget--toc"];e.forEach(e=>{const t=document.querySelector(e);t&&renderMathInElement(t,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}],ignoredClasses:["gist"]})})})</script></article><aside><h2 class=section-title>Related content</h2><div class=subsection-list><div class=article-list--tile><article><a href=/posts/python-grammar-basic/><div class=article-details><h2 class=article-title>Python Grammar Basic</h2></div></a></article><article><a href=/posts/r-grammar-basic/><div class=article-details><h2 class=article-title>R Grammar Basic</h2></div></a></article><article><a href=/posts/html-grammar-basic/><div class=article-details><h2 class=article-title>HTML Grammar Basic</h2></div></a></article></div></div></aside><div class=disqus-container></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><script>window.addEventListener("onColorSchemeChange",e=>{typeof DISQUS=="object"&&DISQUS.reset({reload:!0})})</script><footer class=site-footer><section class=copyright>&copy;
+2026 Guojia Wu</section><section class=powerby>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=4.0.3>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><script type=module>
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script></main></div><script type=text/javascript src=/ts/main.1ff1e5fdc4e178ed422e50aa407526dc552f26342d729343fded19416194382c.js defer></script></body></html>

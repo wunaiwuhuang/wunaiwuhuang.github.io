@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Writing on Guojia Wu</title><link>https://wunaiwuhuang.github.io/tags/writing/</link><description>Recent content in Writing on Guojia Wu</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><lastBuildDate>Mon, 06 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://wunaiwuhuang.github.io/tags/writing/index.xml" rel="self" type="application/rss+xml"/><item><title>Markdown Grammar Basic</title><link>https://wunaiwuhuang.github.io/posts/markdown-grammar-basic/</link><pubDate>Mon, 06 Jan 2025 00:00:00 +0000</pubDate><guid>https://wunaiwuhuang.github.io/posts/markdown-grammar-basic/</guid><description>
+ &lt;blockquote&gt;
+ &lt;p&gt;&lt;strong&gt;Purpose&lt;/strong&gt;: Quick reference for &lt;em&gt;high-frequency&lt;/em&gt; Markdown syntax in Obsidian.&lt;br&gt;
+Tested and works natively in Obsidian (no extra plugins needed).
+Two important issues to remember: &lt;strong&gt;01. Keep pure markdown style code as much as possible&lt;/strong&gt;, &lt;strong&gt;02. Do not use spaces or any other weird characters in titles; Markdown obeys standard URL rules and uses %20 to replace spaces.&lt;/strong&gt;&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id="1-headings"&gt;1. Headings
+&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-md" data-lang="md"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gh"&gt;# H1
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gu"&gt;## H2
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gu"&gt;### H3
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gu"&gt;#### H4
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;Use &lt;code&gt;#&lt;/code&gt; + space + text. Avoid skipping levels (e.g., don&amp;rsquo;t go from H1 to H3). You can use up to level 6 headings in markdown, but strongly recommend less than 4 levels.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id="2-emphasis"&gt;2. Emphasis
+&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-md" data-lang="md"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;*italic* or &lt;span class="ge"&gt;_italic_&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gs"&gt;**bold**&lt;/span&gt; or &lt;span class="gs"&gt;__bold__&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="ge"&gt;**&lt;/span&gt;*bold italic***
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gd"&gt;~~strikethrough~~&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;==highlight==
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&amp;lt;u&amp;gt;bottom line&amp;lt;/u&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;~subscript~
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;^superscript^
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;Use &lt;code&gt;**&lt;/code&gt; for bold (more common than &lt;code&gt;__&lt;/code&gt;).&lt;br&gt;
+Use two space characters &lt;code&gt;[ ][ ]&lt;/code&gt; at the end of a sentence to change line.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id="3-lists"&gt;3. Lists
+&lt;/h2&gt;&lt;h3 id="unordered"&gt;Unordered
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-md" data-lang="md"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; Item
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; Item
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;-&lt;/span&gt; Sub-item (indent with 2 spaces or tab)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="ordered"&gt;Ordered
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-md" data-lang="md"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;1.&lt;/span&gt; First
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;2.&lt;/span&gt; Second
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;3.&lt;/span&gt; Nested (indent!)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;Use &lt;code&gt;- &lt;/code&gt; to start unordered list with bullet while use &lt;code&gt;number. &lt;/code&gt; to start ordered list with auto-numbers.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id="4-links--images"&gt;4. Links &amp;amp; Images
+&lt;/h2&gt;&lt;h3 id="obsidian-specific"&gt;Obsidian-specific
+&lt;/h3&gt;&lt;pre tabindex="0"&gt;&lt;code class="language-wiki" data-lang="wiki"&gt;[[Note Name]] → link to note
+[[Note Name|Custom Text]] → alias
+[[Note Name#title01]] → link to specific title
+[[Note Name#title01#title02]]→ link to lower level title
+[[Note#^block]] → link to specific block
+![[image.png]] → embed image/file
+
+----------
+&amp;lt;figure style=&amp;#34;text-align: center;&amp;#34;&amp;gt;
+&amp;lt;img src=&amp;#34;image path&amp;#34; width=&amp;#34; &amp;#34; height=&amp;#34; &amp;#34;&amp;gt;
+&amp;lt;figcaption&amp;gt; your annotation &amp;lt;/figcaption&amp;gt;
+&amp;lt;/figure&amp;gt; → a very good way to embed one image
+
+----------
+&amp;lt;div style=&amp;#34;text-align: center;&amp;#34;&amp;gt; 
+ &amp;lt;p&amp;gt;&amp;lt;strong&amp;gt; shared title &amp;lt;/strong&amp;gt;&amp;lt;/p&amp;gt; 
+ &amp;lt;div style=&amp;#34;display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;&amp;#34;&amp;gt; 
+ &amp;lt;figure style=&amp;#34;margin: 0;&amp;#34;&amp;gt; 
+ &amp;lt;img src=&amp;#34;image path 01&amp;#34; width=&amp;#34;300&amp;#34; height=&amp;#34;200&amp;#34;&amp;gt; 
+ &amp;lt;figcaption&amp;gt;image title 01&amp;lt;/figcaption&amp;gt; 
+ &amp;lt;/figure&amp;gt; 
+ 
+ &amp;lt;figure style=&amp;#34;margin: 0;&amp;#34;&amp;gt; 
+ &amp;lt;img src=&amp;#34;image path 02&amp;#34; width=&amp;#34;300&amp;#34; height=&amp;#34;200&amp;#34;&amp;gt; 
+ &amp;lt;figcaption&amp;gt;image title 02&amp;lt;/figcaption&amp;gt; 
+ &amp;lt;/figure&amp;gt; 
+ &amp;lt;/div&amp;gt; 
+&amp;lt;/div&amp;gt; → a very good way to embed multiple images
+&lt;/code&gt;&lt;/pre&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;Strongly recommend &lt;strong&gt;DO NOT use any of&lt;/strong&gt; Obsidian specific grammars while writing notes. Turn off WIKI style citation function to ensure portability and elegance. Please only use markdown style code.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;h3 id="markdown-general"&gt;Markdown-general
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-md" data-lang="md"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;[&lt;span class="nt"&gt;Google&lt;/span&gt;](&lt;span class="na"&gt;https://google.com &amp;#34;This is a searching engine&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&amp;lt;https://example.com&amp;gt; → type standard URL to auto-link
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;[Google][id01] → type standard URL to auto-link
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; → at least one blank line exists between two elements
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;[id01]: https://google.com &amp;#34;This is a searching engine&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;![&lt;span class="nt"&gt;embed figure/file&lt;/span&gt;](&lt;span class="na"&gt;figure/file address link &amp;#34;description&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;[&lt;span class="nt"&gt;reference to title&lt;/span&gt;](&lt;span class="na"&gt;#title01&lt;/span&gt;) → title name must exist in file. No need to add space between &amp;#39;#&amp;#39; and &amp;#39;title01&amp;#39;, and no need to add more &amp;#39;#&amp;#39; even if the title01 is not level one title.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;Some external links formats are unsupported in Obsidian, but they are actually standard usage. But actually the first function will satisfy all work.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id="5-code"&gt;5. Code
+&lt;/h2&gt;&lt;h3 id="inline"&gt;Inline
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-md" data-lang="md"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Use &lt;span class="sb"&gt;` `&lt;/span&gt; to add inline code, e.g. &lt;span class="sb"&gt;`printf(&amp;#34;hello world&amp;#34;)`&lt;/span&gt;.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="code-block"&gt;Code Block
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-md" data-lang="md"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;``&lt;span class="sb"&gt;`js (should add language name after `&lt;/span&gt;`&lt;span class="sb"&gt;` sign to get better visualization)
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="sb"&gt;function greet() {
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="sb"&gt; console.log(&amp;#34;Hello!&amp;#34;);
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="sb"&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="sb"&gt;`&lt;/span&gt;`&lt;span class="sb"&gt;`
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="sb"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="sb"&gt;Besides, if you need to add code block within a block, you need to add more `&lt;/span&gt; sign in its parent blocks. e.g.
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;```&lt;span class="sb"&gt;` this is start of parent block
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="sb"&gt;`&lt;/span&gt;`&lt;span class="sb"&gt;` this is start of inside block
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="sb"&gt;`&lt;/span&gt;`&lt;span class="sb"&gt;` this is end of inside block
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="sb"&gt;`&lt;/span&gt;``` this is end of parent block
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;Supported languages: &lt;code&gt;js&lt;/code&gt;, &lt;code&gt;python&lt;/code&gt;, &lt;code&gt;html&lt;/code&gt;, &lt;code&gt;css&lt;/code&gt;, &lt;code&gt;bash&lt;/code&gt;, &lt;code&gt;json&lt;/code&gt;, etc.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id="6-blockquotes"&gt;6. Blockquotes
+&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-md" data-lang="md"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;&amp;gt; &lt;/span&gt;&lt;span class="ge"&gt;This is a quote.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&amp;gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;&amp;gt; &lt;/span&gt;&lt;span class="ge"&gt;&amp;gt; Nested quote
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;Great for notes, summaries, or highlights.&lt;/p&gt;
+
+ &lt;blockquote&gt;
+ &lt;p&gt;Suggest using less than three levels of quotes to keep notes clean.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+
+ &lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id="7-horizontal-rule"&gt;7. Horizontal Rule
+&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-md" data-lang="md"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;---
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;(Three hyphens on their own line)&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="8-tables"&gt;8. Tables
+&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-md" data-lang="md"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;|title01|title02|title03|
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;|:---:|:---|---:| → layout method
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;|element01|element02|element03|
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;Align columns with &lt;code&gt;:---&lt;/code&gt; (left), &lt;code&gt;:---:&lt;/code&gt; (center), &lt;code&gt;---:&lt;/code&gt; (right)—but optional in Obsidian. For example:&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th style="text-align: center"&gt;title01&lt;/th&gt;
+ &lt;th style="text-align: left"&gt;title02&lt;/th&gt;
+ &lt;th style="text-align: right"&gt;title03&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: center"&gt;123&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;123&lt;/td&gt;
+ &lt;td style="text-align: right"&gt;123&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id="9-tasks"&gt;9. Tasks
+&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-md" data-lang="md"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;- [ ]&lt;/span&gt; To-do
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;- [x]&lt;/span&gt; Done
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;Renders as interactive checkboxes in Obsidian (click to toggle!).&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id="10-footnotes"&gt;10. Footnotes
+&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-md" data-lang="md"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Here&amp;#39;s a sentence with a footnote.[^1]
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;[^1]: This is the footnote content.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;Note that footnote explanation should be placed at the end of the article, and always examine names when trying to cite footnotes.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id="11-math-functions"&gt;11. Math Functions
+&lt;/h2&gt;&lt;h3 id="inline-1"&gt;Inline
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-md" data-lang="md"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Use $ $ to start input math functions, within dollar signs you should input LaTeX functions.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;For example: $\frac{\partial f}{\partial x} = \sqrt{a}x$&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;h3 id="function-block"&gt;Function block
+&lt;/h3&gt;&lt;pre tabindex="0"&gt;&lt;code&gt;Use $$ $$ to give a function block. Inside also supports LaTeX functions.
+&lt;/code&gt;&lt;/pre&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;For example: $$\frac{\partial f}{\partial x} = \sqrt{a}x$$&lt;/p&gt;
+
+ &lt;/blockquote&gt;</description></item></channel></rss>
