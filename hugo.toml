@@ -10,6 +10,16 @@ defaultContentLanguage = 'en'
   locale = 'en-US'
   weight = 1
 
+[outputFormats]
+  [outputFormats.json]
+    mediaType = "application/json"
+    baseName = "index"
+    isPlainText = true
+    notAlternative = true
+
+[outputs]
+  page = ["HTML"]
+
 [params]
   mainSections = ['posts', 'projects', 'publications']
 
