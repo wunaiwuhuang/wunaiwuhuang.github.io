@@ -46,40 +46,46 @@ defaultContentLanguage = 'en'
     unsafe = true
 
 [[menu.main]]
-  identifier = 'about'
-  name = 'About'
-  url = '/about/'
+  identifier = 'home'
+  name = 'Home'
+  url = '/'
   weight = 1
-
-[[menu.main]]
-  identifier = 'projects'
-  name = 'Projects'
-  url = '/projects/'
-  weight = 2
-
-[[menu.main]]
-  identifier = 'publications'
-  name = 'Publications'
-  url = '/publications/'
-  weight = 3
-
-[[menu.main]]
-  identifier = 'contact'
-  name = 'Contact'
-  url = '/contact/'
-  weight = 4
-
-[[menu.main]]
-  identifier = 'search'
-  name = 'Search'
-  url = '/search/'
-  weight = 5
 
 [[menu.main]]
   identifier = 'archives'
   name = 'Archives'
   url = '/archives/'
+  weight = 2
+
+[[menu.main]]
+  identifier = 'search'
+  name = 'Search'
+  url = '/search/'
+  weight = 3
+
+[[menu.main]]
+  identifier = 'about'
+  name = 'About'
+  url = '/about/'
+  weight = 4
+
+[[menu.main]]
+  identifier = 'projects'
+  name = 'Projects'
+  url = '/projects/'
+  weight = 5
+
+[[menu.main]]
+  identifier = 'publications'
+  name = 'Publications'
+  url = '/publications/'
   weight = 6
+
+[[menu.main]]
+  identifier = 'contact'
+  name = 'Contact'
+  url = '/contact/'
+  weight = 7
 
 [[menu.social]]
   identifier = 'github'
