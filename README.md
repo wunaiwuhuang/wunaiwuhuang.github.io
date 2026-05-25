@@ -1,67 +1,283 @@
 # Guojia Wu — Academic Homepage
 
-Built with [Hugo](https://gohugo.io) (Stack theme) and deployed via GitHub Actions to GitHub Pages.
+Built with [Hugo](https://gohugo.io) (Stack theme), deployed via GitHub Actions to GitHub Pages.
 
-**Live site:** <https://wunaiwuhuang.github.io/>
+**Live:** <https://wunaiwuhuang.github.io/>
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Static Site Generator | Hugo Extended (>= v0.157.0) |
+| Theme | [Stack](https://github.com/CaiJimmy/hugo-theme-stack) (git submodule) |
+| CI/CD | GitHub Actions — `peaceiris/actions-hugo` + `peaceiris/actions-gh-pages` |
+| Hosting | GitHub Pages (`gh-pages` branch) |
+| Content Format | Markdown + Hugo front matter |
 
 ## Directory Structure
 
 ```
 .
-├── .github/workflows/gh-pages.yml   # CI/CD: auto-deploy to gh-pages branch
-├── hugo.toml                         # Hugo site configuration
-├── archetypes/                       # Content templates (hugo new)
-├── assets/                           # SASS/JS overrides
-├── content/                          # All site content (Markdown)
+├── .github/workflows/gh-pages.yml   # CI: build & deploy on push to master
+├── hugo.toml                         # Site config (theme, menus, widgets, params)
+├── archetypes/                       # `hugo new` templates
+├── assets/                           # SASS/JS overrides (Hugo Pipes)
+├── content/
 │   ├── _index.md                     # Homepage
-│   ├── about/index.md                # About page
-│   ├── projects/
-│   │   ├── _index.md                 # Project list page
-│   │   └── <name>.md                 # Individual project pages
+│   ├── about/index.md                # About (education, research, skills, awards)
+│   ├── posts/                        # Blog posts (Coding Notes)
+│   │   └── <slug>.md
+│   ├── projects/                     # Research projects
+│   │   ├── _index.md                 # Project listing
+│   │   └── <slug>.md                 # Individual project
 │   ├── publications/index.md         # Publication list
-│   └── contact/index.md              # Contact information
-├── layouts/                          # Custom layout overrides
-├── static/                           # Static files served as-is
-│   └── images/
-├── themes/stack/                     # Hugo theme (git submodule)
+│   ├── contact/index.md              # Contact info
+│   ├── search/index.md               # Search page (layout: search)
+│   └── archives/index.md             # Archives page (layout: archives)
+├── layouts/                          # Custom template overrides
+├── static/                           # Static files (images, files, favicon)
+│   └── images/                       # Put all images here
+├── themes/stack/                     # Theme (git submodule, do not edit directly)
 └── README.md
 ```
 
-## Adding Content
+---
 
-### New project
+## Content Management Guide
+
+### Write a New Blog Post
+
+```bash
+hugo new posts/my-title.md
+```
+
+Edit `content/posts/my-title.md`. The front matter must include:
+
+```yaml
+---
+title: "Post Title"
+date: 2026-05-25
+tags: ["tag1", "tag2"]
+categories: ["Category"]
+description: "Short summary for SEO and card preview"
+---
+```
+
+Posts appear on the homepage automatically, sorted by `date`.
+
+### Add a New Project
 
 ```bash
 hugo new projects/my-project.md
 ```
 
-Edit `content/projects/my-project.md` with the relevant front matter (`date`, `tags`, `categories`) and description.
+```yaml
+---
+title: "Project Name"
+date: 2026-05-25
+tags: ["keyword1", "keyword2"]
+categories: ["Project"]
+github: "https://github.com/user/repo"   # optional, omit if none
+period: "Mar. 2025 — Present"            # custom, shown on card
+---
+```
 
-### New publication
+### Edit the About / Publications / Contact Pages
 
-Edit `content/publications/index.md` directly — format follows the existing list style.
+These are single-page documents. Edit directly:
 
-### New blog post
+| Page | File |
+|---|---|
+| About | `content/about/index.md` |
+| Publications | `content/publications/index.md` |
+| Contact | `content/contact/index.md` |
+
+### Add Static Files
+
+Put images, PDFs, or any static assets in `static/`. Reference them in Markdown with root-absolute paths:
+
+```markdown
+![alt](/images/photo.jpg)
+[Download CV](/files/cv.pdf)
+```
+
+### Draft Mode
+
+Set `draft: true` in front matter to hide a page from production builds. Preview locally with:
 
 ```bash
-hugo new posts/my-article.md
+hugo server -D    # -D includes drafts
 ```
+
+---
+
+## Site Configuration Reference (`hugo.toml`)
+
+### Sidebar & Profile
+
+```toml
+[params.sidebar]
+  subtitle = "Your subtitle"
+  avatar = "/images/avatar.jpg"   # static/images/avatar.jpg
+```
+
+### Navigation Menu
+
+```toml
+[[menu.main]]
+  identifier = "about"
+  name = "About"
+  url = "/about/"
+  weight = 1   # lower = first
+```
+
+### Right-Sidebar Widgets
+
+```toml
+[params.widgets]
+  homepage = [
+    { type = "search" },
+    { type = "archives", params = { limit = 5 } },
+    { type = "categories", params = { limit = 10 } },
+    { type = "tag-cloud", params = { limit = 10 } },
+  ]
+  page = [{ type = "toc" }]
+```
+
+- `search` — sidebar search bar (requires `content/search/index.md` with `layout: search`)
+- `archives` — posts grouped by year
+- `categories` — category cloud
+- `tag-cloud` — tag cloud
+- `toc` — table of contents on single pages
+
+### Math Rendering (KaTeX)
+
+```toml
+[params.article.math]
+  enable = true
+```
+
+Use `$...$` for inline, `$$...$$` for block equations.
+
+### Dark Mode Toggle
+
+```toml
+[params.colorScheme]
+  toggle = true
+```
+
+### Social Icons
+
+```toml
+[[menu.social]]
+  identifier = "github"
+  name = "GitHub"
+  url = "https://github.com/username"
+  params = { icon = "brand-github", newTab = true }
+
+[[menu.social]]
+  identifier = "email"
+  name = "Email"
+  url = "mailto:user@example.com"
+  params = { icon = "link", newTab = true }
+```
+
+Available icons in Stack: `brand-github`, `brand-twitter`, `link`, `rss`, `messages`, `user`, `home`.
+
+---
 
 ## Local Development
 
-```bash
-# Install Hugo Extended >= v0.157.0
-# Clone with submodules
-git clone --recurse-submodules https://github.com/wunaiwuhuang/wunaiwuhuang.github.io.git
+### Prerequisites
 
-# Start dev server
+- Hugo Extended >= v0.157.0 (check with `hugo version`)
+- Git
+
+### First-Time Setup
+
+```bash
+git clone --recurse-submodules https://github.com/wunaiwuhuang/wunaiwuhuang.github.io.git
+cd wunaiwuhuang.github.io
 hugo server -D
 ```
 
-Open <http://localhost:1313/> — changes to Markdown files trigger live reload.
+If the theme is missing:
+```bash
+git submodule update --init --recursive
+```
 
-## Deployment
+### Daily Workflow
 
-Push to `main`. GitHub Actions compiles the site with `hugo --minify` and publishes the output to the `gh-pages` branch, which GitHub Pages serves.
+```bash
+hugo server -D        # Start dev server at http://localhost:1313
+# ... edit Markdown files ...
+# Changes auto-reload in browser
+git add -A
+git commit -m "description"
+git push origin master
+```
 
-No manual build step required.
+Hugo watches file changes. The browser refreshes automatically.
+
+---
+
+## Deployment Pipeline
+
+```
+git push master
+  → GitHub Actions triggers
+    → Checkout source (with submodules)
+    → Install Hugo Extended
+    → hugo --minify
+    → Push public/ to gh-pages branch
+  → GitHub Pages serves gh-pages branch
+```
+
+- **Source branch:** `master` (Markdown + config + theme submodule)
+- **Deploy branch:** `gh-pages` (compiled HTML/CSS/JS, auto-generated)
+- **Never edit `gh-pages` directly.** It is overwritten by CI.
+- **Never commit `public/` to `master`.** It is excluded by `.gitignore`.
+
+### Manual Trigger
+
+If auto-deploy fails, go to `https://github.com/wunaiwuhuang/wunaiwuhuang.github.io/actions` → click the workflow → "Run workflow".
+
+---
+
+## Common Tasks
+
+### Update the Hugo Theme
+
+```bash
+git submodule update --remote themes/stack
+git add themes/stack
+git commit -m "chore: update Stack theme"
+git push
+```
+
+### Change Theme
+
+```bash
+# Remove old theme
+git submodule deinit themes/stack
+git rm themes/stack
+
+# Add new theme
+git submodule add <theme-url> themes/<new-theme>
+# Edit hugo.toml: theme = "<new-theme>"
+git add -A && git commit -m "chore: switch to <new-theme>"
+```
+
+### Add a Custom CSS Override
+
+Create `assets/scss/custom.scss` — Hugo Pipes will compile it and Stack will include it automatically.
+
+### Troubleshooting Build Failures
+
+1. Run `hugo` locally — errors are more detailed than CI logs
+2. Check `hugo version` >= 0.157.0 and includes `+extended`
+3. Verify submodule: `git submodule status`
+4. Check `hugo.toml` syntax — especially TOML indentation
+5. Check front matter in recently-edited Markdown files

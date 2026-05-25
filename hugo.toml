@@ -21,6 +21,20 @@ defaultContentLanguage = 'en'
   [params.article.math]
     enable = true
 
+[params.widgets]
+  homepage = [
+    { type = "search" },
+    { type = "archives", params = { limit = 5 } },
+    { type = "categories", params = { limit = 10 } },
+    { type = "tag-cloud", params = { limit = 10 } },
+  ]
+  page = [
+    { type = "toc" },
+  ]
+
+[params.colorScheme]
+  toggle = true
+
 [markup]
   [markup.highlight]
     noClasses = false
@@ -54,6 +68,18 @@ defaultContentLanguage = 'en'
   name = 'Contact'
   url = '/contact/'
   weight = 4
+
+[[menu.main]]
+  identifier = 'search'
+  name = 'Search'
+  url = '/search/'
+  weight = 5
+
+[[menu.main]]
+  identifier = 'archives'
+  name = 'Archives'
+  url = '/archives/'
+  weight = 6
 
 [[menu.social]]
   identifier = 'github'
