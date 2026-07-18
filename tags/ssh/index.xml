@@ -1,0 +1,817 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SSH on Guojia Wu</title><link>https://wunaiwuhuang.github.io/tags/ssh/</link><description>Recent content in SSH on Guojia Wu</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><lastBuildDate>Sat, 18 Jul 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://wunaiwuhuang.github.io/tags/ssh/index.xml" rel="self" type="application/rss+xml"/><item><title>SSH The Definitive Guide</title><link>https://wunaiwuhuang.github.io/posts/ssh-learn-note/</link><pubDate>Sat, 18 Jul 2026 00:00:00 +0000</pubDate><guid>https://wunaiwuhuang.github.io/posts/ssh-learn-note/</guid><description>&lt;h2 id="1-core-concepts"&gt;1. Core Concepts
+&lt;/h2&gt;&lt;h3 id="11-what-is-ssh"&gt;1.1 What is SSH
+&lt;/h3&gt;&lt;p&gt;SSH (Secure Shell) is a cryptographic network protocol for operating network services securely over an untrusted network. It replaces insecure remote-access protocols like Telnet and rlogin.&lt;/p&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;Property&lt;/th&gt;
+					&lt;th&gt;Detail&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Default port&lt;/td&gt;
+					&lt;td&gt;TCP 22&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Architecture&lt;/td&gt;
+					&lt;td&gt;Client-Server&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Standard protocol&lt;/td&gt;
+					&lt;td&gt;RFC 4251–4254&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Primary implementations&lt;/td&gt;
+					&lt;td&gt;OpenSSH (dominant), Dropbear, libssh&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;The protocol provides three guarantees:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Confidentiality&lt;/strong&gt;: All traffic is encrypted (symmetric encryption after key exchange).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Integrity&lt;/strong&gt;: Data cannot be tampered with in transit (HMAC).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Authentication&lt;/strong&gt;: The server and optionally the client prove their identities.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Basic connection&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh user@host
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Specify a non-default port&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh -p &lt;span class="m"&gt;2222&lt;/span&gt; user@host
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Use a specific private key&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh -i ~/.ssh/my_key user@host
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Verbose mode for debugging&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh -v user@host &lt;span class="c1"&gt;# level 1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh -vv user@host &lt;span class="c1"&gt;# level 2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh -vvv user@host &lt;span class="c1"&gt;# level 3 (most detail)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;Port 22 is the IANA-assigned default. &lt;code&gt;-v&lt;/code&gt;/&lt;code&gt;-vv&lt;/code&gt;/&lt;code&gt;-vvv&lt;/code&gt; are indispensable for diagnosing authentication failures.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;h3 id="12-the-client-server-model"&gt;1.2 The Client-Server Model
+&lt;/h3&gt;&lt;pre tabindex="0"&gt;&lt;code&gt;[SSH Client] ----TCP/22----&amp;gt; [SSH Server (sshd)]
+ (ssh) (sshd daemon)
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;sshd&lt;/strong&gt;: The daemon listening on the server. Reads &lt;code&gt;/etc/ssh/sshd_config&lt;/code&gt; for server-wide policy.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ssh&lt;/strong&gt;: The client binary. Reads &lt;code&gt;~/.ssh/config&lt;/code&gt; and &lt;code&gt;/etc/ssh/ssh_config&lt;/code&gt; for client-side behavior.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="13-authentication-methods"&gt;1.3 Authentication Methods
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 1. Password authentication (discouraged for production)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh user@host &lt;span class="c1"&gt;# prompts for password&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 2. Public key authentication (industry standard)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh -i ~/.ssh/my_key user@host
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 3. Keyboard-interactive (pluggable, used by 2FA/PAM)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh -o &lt;span class="nv"&gt;PreferredAuthentications&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;keyboard-interactive user@host
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;Public-key authentication is the gold standard. Passwords are susceptible to brute-force and credential stuffing. Disable password auth on production servers with &lt;code&gt;PasswordAuthentication no&lt;/code&gt; in &lt;code&gt;sshd_config&lt;/code&gt;.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id="2-key-management"&gt;2. Key Management
+&lt;/h2&gt;&lt;h3 id="21-key-types"&gt;2.1 Key Types
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Ed25519 (RECOMMENDED: fast, compact, modern, high security margin)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh-keygen -t ed25519 -f ~/.ssh/my_key -C &lt;span class="s2"&gt;&amp;#34;comment&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Ed25519-SK (FIDO/U2F hardware token-backed)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh-keygen -t ed25519-sk -f ~/.ssh/my_sk_key
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# RSA 4096 (legacy fallback; slower key exchange, larger keys)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh-keygen -t rsa -b &lt;span class="m"&gt;4096&lt;/span&gt; -f ~/.ssh/my_rsa_key
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# ECDSA (elliptic curve; decent but NIST curves have trust concerns)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh-keygen -t ecdsa -b &lt;span class="m"&gt;521&lt;/span&gt; -f ~/.ssh/my_ecdsa_key
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;Always prefer Ed25519. RSA is only needed for compatibility with ancient servers. ECDSA is acceptable but Ed25519 is strictly better.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;h3 id="22-key-generation-in-detail"&gt;2.2 Key Generation in Detail
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Full invocation with all common options&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh-keygen -t ed25519 -f ~/.ssh/lab_server_key -C &lt;span class="s2"&gt;&amp;#34;wuguojia-lab-2026&amp;#34;&lt;/span&gt; -N &lt;span class="s2"&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# -t Key type (ed25519, rsa, ecdsa, ed25519-sk)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# -f Output file path (private key); public key gets .pub appended&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# -C Comment appended to the public key (identifies the key)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# -N Passphrase (&amp;#34;&amp;#34; = empty, for automation; otherwise interactive prompt)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# -b Bit length (only relevant for RSA; 4096 is standard)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# -a Rounds of KDF for passphrase-protected keys (higher = slower to crack)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Adding/removing/changing a passphrase on an existing key&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh-keygen -p -f ~/.ssh/my_key &lt;span class="c1"&gt;# prompts to change passphrase&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh-keygen -p -f ~/.ssh/my_key -N &lt;span class="s2"&gt;&amp;#34;&amp;#34;&lt;/span&gt; &lt;span class="c1"&gt;# remove passphrase&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh-keygen -p -f ~/.ssh/my_key -P old -N new
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;A passphrase adds a second factor (something you know) to the key file (something you have). Use it whenever feasible. For automated scripts (cron jobs, tunnel daemons), passphrase-less keys are an accepted trade-off.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;h3 id="23-the-one-key-per-source-principle"&gt;2.3 The &amp;ldquo;One Key Per Source&amp;rdquo; Principle
+&lt;/h3&gt;&lt;pre tabindex="0"&gt;&lt;code&gt; ┌─────────────┐
+ Machine A ----&amp;gt; │ Key_A.pub │
+ │─────────────│
+ Machine B ----&amp;gt; │ Key_B.pub │ Server C (authorized_keys)
+ │─────────────│
+ Machine C ----&amp;gt; │ Key_C.pub │
+ └─────────────┘
+&lt;/code&gt;&lt;/pre&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# CORRECT: each client generates its own key&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# On Machine A:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh-keygen -t ed25519 -f ~/.ssh/key_from_A
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# On Machine B:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh-keygen -t ed25519 -f ~/.ssh/key_from_B
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Both public keys are added to Server C&amp;#39;s authorized_keys:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cat key_from_A.pub &amp;gt;&amp;gt; ~/.ssh/authorized_keys &lt;span class="c1"&gt;# on Server C&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cat key_from_B.pub &amp;gt;&amp;gt; ~/.ssh/authorized_keys &lt;span class="c1"&gt;# on Server C&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;Never copy a private key between machines. If Machine A is compromised, revoking only Key_A leaves Machine B unaffected. Sharing a private key means a single compromise cascades everywhere.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;h3 id="24-copying-public-keys-to-the-server"&gt;2.4 Copying Public Keys to the Server
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Method 1: ssh-copy-id (standard, idempotent, handles permissions)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh-copy-id -i ~/.ssh/my_key.pub user@remote_host
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Method 2: Manual pipe (when ssh-copy-id is unavailable)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cat ~/.ssh/my_key.pub &lt;span class="p"&gt;|&lt;/span&gt; ssh user@remote_host &lt;span class="s2"&gt;&amp;#34;cat &amp;gt;&amp;gt; ~/.ssh/authorized_keys&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Method 3: scp + manual append&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;scp ~/.ssh/my_key.pub user@remote_host:/tmp/temp_key.pub
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh user@remote_host &lt;span class="s2"&gt;&amp;#34;cat /tmp/temp_key.pub &amp;gt;&amp;gt; ~/.ssh/authorized_keys &amp;amp;&amp;amp; rm /tmp/temp_key.pub&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;&lt;code&gt;ssh-copy-id&lt;/code&gt; is the canonical tool. It ensures the remote &lt;code&gt;.ssh&lt;/code&gt; directory and &lt;code&gt;authorized_keys&lt;/code&gt; file have correct permissions (700 and 600 respectively).&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id="3-critical-files-and-directories"&gt;3. Critical Files and Directories
+&lt;/h2&gt;&lt;h3 id="31-overview"&gt;3.1 Overview
+&lt;/h3&gt;&lt;pre tabindex="0"&gt;&lt;code&gt;~/.ssh/
+├── authorized_keys # Server-side: whitelist of permitted public keys
+├── known_hosts # Client-side: fingerprint registry of known servers
+├── config # Client-side: connection aliases and options
+├── id_ed25519 # Private key (default name)
+├── id_ed25519.pub # Public key (default name)
+├── my_custom_key # Custom-named private key
+└── my_custom_key.pub # Corresponding public key
+&lt;/code&gt;&lt;/pre&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;Strict permissions are non-negotiable. SSH will silently ignore keys and config files if permissions are too loose.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;h3 id="32-permissions-table"&gt;3.2 Permissions Table
+&lt;/h3&gt;&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;File/Directory&lt;/th&gt;
+					&lt;th&gt;Permission&lt;/th&gt;
+					&lt;th&gt;Octal&lt;/th&gt;
+					&lt;th&gt;Command&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;code&gt;~/.ssh/&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;&lt;code&gt;drwx------&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;700&lt;/td&gt;
+					&lt;td&gt;&lt;code&gt;chmod 700 ~/.ssh&lt;/code&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;code&gt;authorized_keys&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;&lt;code&gt;-rw-------&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;600&lt;/td&gt;
+					&lt;td&gt;&lt;code&gt;chmod 600 ~/.ssh/authorized_keys&lt;/code&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Private key (any)&lt;/td&gt;
+					&lt;td&gt;&lt;code&gt;-rw-------&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;600&lt;/td&gt;
+					&lt;td&gt;&lt;code&gt;chmod 600 ~/.ssh/my_key&lt;/code&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Public key (any)&lt;/td&gt;
+					&lt;td&gt;&lt;code&gt;-rw-r--r--&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;644&lt;/td&gt;
+					&lt;td&gt;&lt;code&gt;chmod 644 ~/.ssh/my_key.pub&lt;/code&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;code&gt;known_hosts&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;&lt;code&gt;-rw-r--r--&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;644&lt;/td&gt;
+					&lt;td&gt;&lt;code&gt;chmod 644 ~/.ssh/known_hosts&lt;/code&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;code&gt;config&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;&lt;code&gt;-rw-r--r--&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;644&lt;/td&gt;
+					&lt;td&gt;&lt;code&gt;chmod 644 ~/.ssh/config&lt;/code&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Quick fix-all&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;chmod &lt;span class="m"&gt;700&lt;/span&gt; ~/.ssh
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;chmod &lt;span class="m"&gt;600&lt;/span&gt; ~/.ssh/id_ed25519 ~/.ssh/authorized_keys 2&amp;gt;/dev/null
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;chmod &lt;span class="m"&gt;644&lt;/span&gt; ~/.ssh/id_ed25519.pub ~/.ssh/known_hosts ~/.ssh/config 2&amp;gt;/dev/null
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;The SSH daemon (sshd) enforces that &lt;code&gt;authorized_keys&lt;/code&gt; and the &lt;code&gt;.ssh&lt;/code&gt; directory are not group/other-writable. If they are, key authentication fails with no clear error—always check permissions first when troubleshooting.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;h3 id="33-authorized_keys-server-side"&gt;3.3 &lt;code&gt;authorized_keys&lt;/code&gt; (Server-Side)
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Purpose&lt;/strong&gt;: The server&amp;rsquo;s access control list. Each line is one authorized public key.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Location&lt;/strong&gt;: &lt;code&gt;~/.ssh/authorized_keys&lt;/code&gt; (per-user). System-wide: &lt;code&gt;/etc/ssh/authorized_keys&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Basic entry&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh-ed25519 AAAAC3NzaC1lZD... comment
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Entry with restrictions (force a specific command, disable port forwarding)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nv"&gt;command&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;/usr/local/bin/backup.sh&amp;#34;&lt;/span&gt;,no-port-forwarding,no-agent-forwarding ssh-ed25519 AAAAC3NzaC1lZD... backup-only-key
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Entry restricted by source IP&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nv"&gt;from&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;192.168.1.0/24,10.0.0.5&amp;#34;&lt;/span&gt; ssh-ed25519 AAAAC3NzaC1lZD... restricted-by-ip
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;&lt;code&gt;authorized_keys&lt;/code&gt; can enforce fine-grained restrictions per key: limit the command, disable port forwarding, restrict source IPs. This is especially useful for automation/CI keys.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;h3 id="34-known_hosts-client-side"&gt;3.4 &lt;code&gt;known_hosts&lt;/code&gt; (Client-Side)
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Purpose&lt;/strong&gt;: Trust-on-first-use (TOFU) registry. On first connection, the server&amp;rsquo;s host key fingerprint is recorded. On subsequent connections, SSH verifies the server presents the same key.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Remove a specific host entry (e.g., after server reinstall)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh-keygen -R hostname_or_ip
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh-keygen -R 192.168.1.10
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Hashing known_hosts (prevents an attacker who reads the file from&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# enumerating which servers you connect to)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh-keygen -H -f ~/.ssh/known_hosts
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;Never ignore the &amp;ldquo;HOST IDENTIFICATION HAS CHANGED&amp;rdquo; warning without investigation. It genuinely protects against MITM attacks. After a legitimate server rebuild, use &lt;code&gt;ssh-keygen -R&lt;/code&gt; to remove the old entry.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;h3 id="35-private-key-client-side"&gt;3.5 Private Key (Client-Side)
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Purpose&lt;/strong&gt;: Cryptographic proof of identity. Must never leave the client machine.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Required permission&lt;/strong&gt;: 600 (owner read/write only).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Inspect key metadata without revealing private material&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh-keygen -l -f ~/.ssh/my_key &lt;span class="c1"&gt;# fingerprint and bit length&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Convert key formats (e.g., OpenSSH &amp;lt;-&amp;gt; PEM for older tools)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh-keygen -p -m PEM -f ~/.ssh/my_key &lt;span class="c1"&gt;# convert to PEM&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="36-public-key-client-side"&gt;3.6 Public Key (Client-Side)
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Purpose&lt;/strong&gt;: Distributed to servers to grant access. Safe to share.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Format&lt;/strong&gt;: One line: &lt;code&gt;type base64data comment&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# View fingerprint (SHA256)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh-keygen -lf ~/.ssh/my_key.pub
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Extract public key from private key&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh-keygen -y -f ~/.ssh/my_key &amp;gt; ~/.ssh/my_key.pub
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="37-config-file"&gt;3.7 &lt;code&gt;config&lt;/code&gt; File
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Purpose&lt;/strong&gt;: Client-side connection definitions. Enables shorthand aliases, per-host key selection, and multistep routing.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Location&lt;/strong&gt;: &lt;code&gt;~/.ssh/config&lt;/code&gt; (user) and &lt;code&gt;/etc/ssh/ssh_config&lt;/code&gt; (system-wide).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Precedence&lt;/strong&gt;: Command-line flags &amp;gt; &lt;code&gt;~/.ssh/config&lt;/code&gt; &amp;gt; &lt;code&gt;/etc/ssh/ssh_config&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Detailed coverage in Section 5.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="4-basic-client-usage"&gt;4. Basic Client Usage
+&lt;/h2&gt;&lt;h3 id="41-remote-shell-ssh"&gt;4.1 Remote Shell (ssh)
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh user@host &lt;span class="c1"&gt;# interactive login&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh user@host &lt;span class="nb"&gt;command&lt;/span&gt; &lt;span class="c1"&gt;# run single command and exit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh user@host &lt;span class="s1"&gt;&amp;#39;ls -la /var/log&amp;#39;&lt;/span&gt; &lt;span class="c1"&gt;# quoting for multi-word commands&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh -t user@host top &lt;span class="c1"&gt;# force pseudo-terminal allocation&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh -T user@host &lt;span class="c1"&gt;# disable pseudo-terminal&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh -N user@host &lt;span class="c1"&gt;# no remote command (tunnels only)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh -f user@host sleep &lt;span class="m"&gt;60&lt;/span&gt; &lt;span class="c1"&gt;# background after authentication&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;&lt;code&gt;-t&lt;/code&gt; is needed when a remote command requires a TTY (e.g., &lt;code&gt;top&lt;/code&gt;, &lt;code&gt;vim&lt;/code&gt;). &lt;code&gt;-T&lt;/code&gt; suppresses TTY and is often used with &lt;code&gt;-N&lt;/code&gt; for tunnel-only connections.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;h3 id="42-file-transfer-scp--sftp"&gt;4.2 File Transfer (scp &amp;amp; sftp)
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# scp: copy files over SSH&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;scp local_file user@host:/remote/path &lt;span class="c1"&gt;# upload&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;scp user@host:/remote/file ./local_path &lt;span class="c1"&gt;# download&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;scp -r local_dir user@host:/remote/dir &lt;span class="c1"&gt;# recursive (directory)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# sftp: interactive file transfer&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sftp user@host
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sftp&amp;gt; ls
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sftp&amp;gt; get remote_file local_name
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sftp&amp;gt; put local_file remote_name
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sftp&amp;gt; get -r remote_dir/ &lt;span class="c1"&gt;# recursive download&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# rsync over SSH (preferred for large/syncing transfers)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;rsync -avz -e &lt;span class="s2"&gt;&amp;#34;ssh -p 2222&amp;#34;&lt;/span&gt; local_dir/ user@host:/remote/dir/
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;rsync -avz --progress large_file user@host:/path/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;&lt;code&gt;rsync&lt;/code&gt; is superior to &lt;code&gt;scp&lt;/code&gt; for large transfers: it resumes interrupted transfers, transfers only deltas, and can preserve permissions/timestamps.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;h3 id="43-ssh-agent--ssh-add"&gt;4.3 ssh-agent &amp;amp; ssh-add
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Start the agent (typically auto-started by desktop environments)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;eval&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;ssh-agent&lt;span class="k"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# start agent and export env vars&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Add a key to the agent (prompts for passphrase once)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh-add ~/.ssh/my_key
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# List loaded keys&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh-add -l
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Delete all keys&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh-add -D
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Lock/unlock the agent&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh-add -x &lt;span class="c1"&gt;# lock (set password)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh-add -X &lt;span class="c1"&gt;# unlock&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Forward the agent to a remote host (USE WITH CAUTION)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh -A user@host &lt;span class="c1"&gt;# remote host can use your agent keys&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;&lt;code&gt;ssh-agent&lt;/code&gt; caches decrypted keys in memory so you only enter the passphrase once per session. Agent forwarding (&lt;code&gt;-A&lt;/code&gt;) lets a remote host use your local keys, but is a security risk on untrusted servers—use &lt;code&gt;ProxyJump&lt;/code&gt; instead whenever possible.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id="5-client-configuration-sshconfig"&gt;5. Client Configuration (&lt;code&gt;~/.ssh/config&lt;/code&gt;)
+&lt;/h2&gt;&lt;h3 id="51-basic-host-alias"&gt;5.1 Basic Host Alias
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Host myserver
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; HostName 198.51.100.10
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; User admin
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Port 2222
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; IdentityFile ~/.ssh/server_key
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# With config, this is all you type:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh myserver
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Equivalent command without config:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh -p &lt;span class="m"&gt;2222&lt;/span&gt; -i ~/.ssh/server_key admin@198.51.100.10
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;Every &lt;code&gt;Host&lt;/code&gt; block defines an alias. Key-value pairs under it apply only to that alias. First-match wins when aliases overlap—put more specific &lt;code&gt;Host&lt;/code&gt; entries before generic ones.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;h3 id="52-global-defaults-with-host-"&gt;5.2 Global Defaults with &lt;code&gt;Host *&lt;/code&gt;
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Host *
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; ServerAliveInterval 60
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; ServerAliveCountMax 5
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; StrictHostKeyChecking accept-new
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; AddKeysToAgent yes
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; IdentitiesOnly yes
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# ServerAliveInterval 60 Send a keep-alive null packet every 60 seconds.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Prevents NAT/firewall timeouts and broken-pipe errors.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;#&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# ServerAliveCountMax 5 Disconnect after 5 consecutive missed keep-alives.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Total tolerance: 60 * 5 = 300 seconds.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;#&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# StrictHostKeyChecking accept-new&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# accept-new: auto-accept *new* hosts, but warn on changes.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# no: never auto-add (most secure).&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# yes: never auto-add, refuse if not in known_hosts.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;#&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# IdentitiesOnly yes Only offer keys explicitly listed in IdentityFile.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Prevents &amp;#34;Too many authentication failures&amp;#34; errors.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;&lt;code&gt;ServerAliveInterval&lt;/code&gt; is essential for long-lived SSH sessions. Without it, idle connections can be silently dropped by firewalls or NAT gateways, leading to frozen terminals.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;h3 id="53-solving-too-many-authentication-failures"&gt;5.3 Solving &amp;ldquo;Too Many Authentication Failures&amp;rdquo;
+&lt;/h3&gt;&lt;p&gt;When you run &lt;code&gt;ssh user@host&lt;/code&gt;, the SSH client tries every key in &lt;code&gt;~/.ssh/&lt;/code&gt; sequentially. Most servers disconnect after 5–6 failed attempts (controlled by &lt;code&gt;MaxAuthTries&lt;/code&gt; in &lt;code&gt;sshd_config&lt;/code&gt;). If you have many keys, the correct key might never get tried.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# Explicitly specify one key per host to avoid key-storm
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Host myserver
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; HostName 10.0.0.5
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; User admin
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; IdentityFile ~/.ssh/server_key
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; IdentitiesOnly yes
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;&lt;code&gt;IdentitiesOnly yes&lt;/code&gt; is the critical directive. Without it, SSH will still offer keys from &lt;code&gt;ssh-add -l&lt;/code&gt; even if you specified an &lt;code&gt;IdentityFile&lt;/code&gt;.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id="6-ssh-tunneling-port-forwarding"&gt;6. SSH Tunneling (Port Forwarding)
+&lt;/h2&gt;&lt;h3 id="61-conceptual-overview"&gt;6.1 Conceptual Overview
+&lt;/h3&gt;&lt;p&gt;SSH tunneling encapsulates arbitrary TCP traffic inside an encrypted SSH connection. Three modes:&lt;/p&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;Mode&lt;/th&gt;
+					&lt;th&gt;Flag&lt;/th&gt;
+					&lt;th&gt;Direction&lt;/th&gt;
+					&lt;th&gt;Use Case&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Local Forwarding&lt;/td&gt;
+					&lt;td&gt;&lt;code&gt;-L&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;Client → Server → Target&lt;/td&gt;
+					&lt;td&gt;Access a remote service through a firewall&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Remote Forwarding&lt;/td&gt;
+					&lt;td&gt;&lt;code&gt;-R&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;Server → Client → Target&lt;/td&gt;
+					&lt;td&gt;Expose a local service to the remote side&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Dynamic Forwarding&lt;/td&gt;
+					&lt;td&gt;&lt;code&gt;-D&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;Client → Server (SOCKS5 proxy)&lt;/td&gt;
+					&lt;td&gt;Browse the web through the SSH server&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id="62-local-forwarding--l"&gt;6.2 Local Forwarding (&lt;code&gt;-L&lt;/code&gt;)
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Scenario: Remote PostgreSQL on 192.168.1.50:5432, only reachable from SSH server.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh -L 5432:192.168.1.50:5432 user@ssh_server
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Now `psql -h localhost -p 5432` on your machine connects to the remote DB.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Suppress remote shell, run in background, for tunnel-only sessions&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh -fNL 5432:192.168.1.50:5432 user@ssh_server
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;&lt;code&gt;-L&lt;/code&gt; maps a local port to a remote destination as seen from the SSH server. The actual forwarding chain is: your machine → SSH server (encrypted) → target host (plain or re-encrypted depending on target protocol).&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;h3 id="63-remote-forwarding--r"&gt;6.3 Remote Forwarding (&lt;code&gt;-R&lt;/code&gt;)
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Scenario: Your local dev server (localhost:3000) needs to be accessible from the internet.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh -R 8080:localhost:3000 user@public_server
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Now `curl http://localhost:8080` on the public server hits your local dev server.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;By default, &lt;code&gt;-R&lt;/code&gt; only binds to &lt;code&gt;localhost&lt;/code&gt; on the remote side for security. To expose the port externally, you need &lt;code&gt;GatewayPorts yes&lt;/code&gt; in &lt;code&gt;sshd_config&lt;/code&gt;.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;h3 id="64-dynamic-forwarding--d"&gt;6.4 Dynamic Forwarding (&lt;code&gt;-D&lt;/code&gt;)
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Create a SOCKS5 proxy on localhost:1080 routed through the SSH server.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh -D &lt;span class="m"&gt;1080&lt;/span&gt; user@ssh_server
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Configure your browser to use SOCKS5 proxy at localhost:1080.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;&lt;code&gt;-D&lt;/code&gt; creates a SOCKS5 proxy. The SSH client acts as a proxy server; the remote SSH server is the egress point.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;h3 id="65-key-tunneling-options"&gt;6.5 Key Tunneling Options
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;-f &lt;span class="c1"&gt;# Background after authentication (combine with -N).&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;-N &lt;span class="c1"&gt;# Do not execute a remote command (tunnel only).&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;-T &lt;span class="c1"&gt;# Disable pseudo-terminal allocation.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;-n &lt;span class="c1"&gt;# Redirect stdin from /dev/null (for background tunnels).&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;-q &lt;span class="c1"&gt;# Quiet mode; suppress warnings.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;-v &lt;span class="c1"&gt;# Verbose; use -vv for debug-level output.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;-o &lt;span class="s2"&gt;&amp;#34;ExitOnForwardFailure=yes&amp;#34;&lt;/span&gt; &lt;span class="c1"&gt;# Abort if port forwarding setup fails.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;-o &lt;span class="s2"&gt;&amp;#34;ServerAliveInterval=30&amp;#34;&lt;/span&gt; &lt;span class="c1"&gt;# Keep-alive for tunnel longevity.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;&lt;code&gt;ExitOnForwardFailure=yes&lt;/code&gt; is critical for reliability. Without it, SSH may establish a connection but silently fail to bind the port.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id="7-proxyjump--jump-hosts"&gt;7. ProxyJump &amp;amp; Jump Hosts
+&lt;/h2&gt;&lt;h3 id="71-problem"&gt;7.1 Problem
+&lt;/h3&gt;&lt;p&gt;The target server is behind a firewall. You can only reach a bastion/jump host. The naive approach—SSH to bastion, then SSH again from bastion to target—leaves your private key on the bastion and creates a manually managed two-hop session.&lt;/p&gt;
+&lt;h3 id="72-solution--j--proxyjump"&gt;7.2 Solution: &lt;code&gt;-J&lt;/code&gt; / &lt;code&gt;ProxyJump&lt;/code&gt;
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Single-hop jump via bastion&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh -J bastion_user@bastion_ip target_user@internal_ip
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Multi-hop (chain of jumps)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh -J hop1,hop2 target_user@final_ip
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# ~/.ssh/config equivalent
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Host bastion
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; HostName 203.0.113.1
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; User admin
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; IdentityFile ~/.ssh/local_key
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Host internal_server
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; HostName 10.0.0.5
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; User appuser
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; IdentityFile ~/.ssh/local_key
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; ProxyJump bastion
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="73-how-proxyjump-works-transparent-tunneling"&gt;7.3 How ProxyJump Works (Transparent Tunneling)
+&lt;/h3&gt;&lt;pre tabindex="0"&gt;&lt;code&gt;[Your Machine] --(1) SSH auth to bastion--&amp;gt; [Bastion]
+ | |
+ +--------(2) TCP pipe through bastion ----+
+ |
+ [Internal Server:22]
+ |
+ +--------(3) Second SSH auth through pipe--+
+&lt;/code&gt;&lt;/pre&gt;&lt;ol&gt;
+&lt;li&gt;Your machine authenticates to the bastion.&lt;/li&gt;
+&lt;li&gt;It instructs the bastion to open a raw TCP connection to &lt;code&gt;internal_server:22&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Your machine performs a &lt;strong&gt;second, independent&lt;/strong&gt; key exchange and authentication with the internal server &lt;strong&gt;through&lt;/strong&gt; that pipe.&lt;/li&gt;
+&lt;/ol&gt;
+
+ &lt;blockquote&gt;
+ &lt;p&gt;The bastion is a dumb pipe. Traffic between you and the internal server is encrypted end-to-end. The bastion cannot decrypt it. Your private key never touches the bastion.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;h3 id="74-proxycommand-legacy-alternative"&gt;7.4 ProxyCommand (Legacy Alternative)
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# Before OpenSSH 7.3, ProxyJump (-J) did not exist. ProxyCommand was the equivalent:
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Host internal_server
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; HostName 10.0.0.5
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; User appuser
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; ProxyCommand ssh -W %h:%p bastion
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;&lt;code&gt;-W %h:%p&lt;/code&gt; is the &amp;ldquo;netcat mode&amp;rdquo; of SSH: forward stdin/stdout to &lt;code&gt;%h&lt;/code&gt; (target host) on &lt;code&gt;%p&lt;/code&gt; (target port). &lt;code&gt;ProxyJump&lt;/code&gt; is syntactic sugar over this mechanism. Modern OpenSSH versions (7.3+) should use &lt;code&gt;ProxyJump&lt;/code&gt;.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id="8-nat-traversal--reverse-tunnels"&gt;8. NAT Traversal &amp;amp; Reverse Tunnels
+&lt;/h2&gt;&lt;h3 id="81-the-problem"&gt;8.1 The Problem
+&lt;/h3&gt;&lt;p&gt;A machine is behind a NAT/firewall that blocks all inbound connections (common in campus networks, home routers, corporate LANs). You need to SSH into this machine from the outside.&lt;/p&gt;
+&lt;h3 id="82-architecture"&gt;8.2 Architecture
+&lt;/h3&gt;&lt;pre tabindex="0"&gt;&lt;code&gt;[Trapped Machine] ---outbound SSH---&amp;gt; [Public Relay Server]
+ (initiates tunnel) (listens on a port)
+
+[Your Laptop] ---SSH via ProxyJump---&amp;gt; [Public Relay] ---pipe---&amp;gt; [Trapped Machine]
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The trapped machine initiates an &lt;strong&gt;outbound&lt;/strong&gt; connection (which is almost always allowed by firewalls) and binds a reverse port on the public relay.&lt;/p&gt;
+&lt;h3 id="83-reverse-tunnel-setup"&gt;8.3 Reverse Tunnel Setup
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Executed ON THE TRAPPED MACHINE&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh -i ~/.ssh/tunnel_key &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -o &lt;span class="s2"&gt;&amp;#34;StrictHostKeyChecking=no&amp;#34;&lt;/span&gt; &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -o &lt;span class="s2"&gt;&amp;#34;ServerAliveInterval=30&amp;#34;&lt;/span&gt; &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -o &lt;span class="s2"&gt;&amp;#34;ServerAliveCountMax=3&amp;#34;&lt;/span&gt; &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -o &lt;span class="s2"&gt;&amp;#34;ExitOnForwardFailure=yes&amp;#34;&lt;/span&gt; &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -fNR 2222:localhost:22 &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; root@public_relay_ip
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# On YOUR LAPTOP (~/.ssh/config): connect to the trapped machine
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# via the relay using ProxyJump
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Host trapped_machine
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; HostName localhost
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Port 2222
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; User internal_user
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; IdentityFile ~/.ssh/local_key
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; ProxyJump public_relay
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="84-critical-insight-proxyjump-bypasses-firewall-rules"&gt;8.4 Critical Insight: ProxyJump Bypasses Firewall Rules
+&lt;/h3&gt;&lt;p&gt;When you &lt;code&gt;ssh trapped_machine&lt;/code&gt;, your connection hits &lt;code&gt;localhost:2222&lt;/code&gt; &lt;strong&gt;from within the relay server itself&lt;/strong&gt; (because ProxyJump first connects to the relay, then opens a TCP connection to &lt;code&gt;localhost:2222&lt;/code&gt;). The external firewall rules on the relay are irrelevant—the traffic never crosses the external interface.&lt;/p&gt;
+
+ &lt;blockquote&gt;
+ &lt;p&gt;You do &lt;strong&gt;not&lt;/strong&gt; need to open port 2222 on the public relay&amp;rsquo;s firewall/security group. The connection to &lt;code&gt;localhost:2222&lt;/code&gt; is intra-machine and bypasses all inbound firewall rules.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id="9-cloudflare-tunnel-as-ssh-transport"&gt;9. Cloudflare Tunnel as SSH Transport
+&lt;/h2&gt;&lt;h3 id="91-motivation"&gt;9.1 Motivation
+&lt;/h3&gt;&lt;p&gt;Cloudflare Tunnel (&lt;code&gt;cloudflared&lt;/code&gt;) provides an alternative to manual reverse SSH tunnels. It uses outbound websocket connections to Cloudflare&amp;rsquo;s edge network, which means:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;No need for a public-facing server with a static IP.&lt;/li&gt;
+&lt;li&gt;Traffic is proxied through Cloudflare&amp;rsquo;s global network.&lt;/li&gt;
+&lt;li&gt;Built-in DDoS protection and TLS termination.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="92-setup-and-usage"&gt;9.2 Setup and Usage
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# On the trapped machine: start the Cloudflare tunnel&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;nohup cloudflared tunnel --url tcp://localhost:22 &amp;gt; tunnel.log 2&amp;gt;&lt;span class="p"&gt;&amp;amp;&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt; &lt;span class="p"&gt;&amp;amp;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Extract the assigned hostname from logs&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nv"&gt;ADDR&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;grep -ao &lt;span class="s1"&gt;&amp;#39;https://[a-z0-9-]*\.trycloudflare\.com&amp;#39;&lt;/span&gt; tunnel.log &lt;span class="p"&gt;|&lt;/span&gt; head -1&lt;span class="k"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$ADDR&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# On YOUR LAPTOP (~/.ssh/config): use ProxyCommand with cloudflared
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Host trapped_machine_cf
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; HostName prepaid-rip-texture-modifications.trycloudflare.com
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; User internal_user
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; IdentityFile ~/.ssh/local_key
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; ProxyCommand /path/to/cloudflared.exe access ssh --hostname %h
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;&lt;code&gt;ProxyCommand&lt;/code&gt; delegates the transport layer to an external program. Here, &lt;code&gt;cloudflared access ssh&lt;/code&gt; establishes a websocket connection through Cloudflare and provides a clean stdin/stdout pipe for SSH.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;h3 id="93-comparison-reverse-tunnel-vs-cloudflare"&gt;9.3 Comparison: Reverse Tunnel vs Cloudflare
+&lt;/h3&gt;&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;Aspect&lt;/th&gt;
+					&lt;th&gt;Reverse SSH Tunnel&lt;/th&gt;
+					&lt;th&gt;Cloudflare Tunnel&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Requires a public server&lt;/td&gt;
+					&lt;td&gt;Yes (fixed IP)&lt;/td&gt;
+					&lt;td&gt;No&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Requires open inbound ports&lt;/td&gt;
+					&lt;td&gt;No (bypassed by ProxyJump)&lt;/td&gt;
+					&lt;td&gt;No&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Hostname stability&lt;/td&gt;
+					&lt;td&gt;Fixed (server IP)&lt;/td&gt;
+					&lt;td&gt;Ephemeral (changes on restart)&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Reliability&lt;/td&gt;
+					&lt;td&gt;Depends on SSH; keep-alive needed&lt;/td&gt;
+					&lt;td&gt;WebSocket; more resilient&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Setup complexity&lt;/td&gt;
+					&lt;td&gt;Medium (key management + cron)&lt;/td&gt;
+					&lt;td&gt;Medium (binary download + config)&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Enterprise features&lt;/td&gt;
+					&lt;td&gt;None&lt;/td&gt;
+					&lt;td&gt;Access policies, audit logs&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id="10-process-management--automation"&gt;10. Process Management &amp;amp; Automation
+&lt;/h2&gt;&lt;h3 id="101-process-detection-with-pgrep"&gt;10.1 Process Detection with &lt;code&gt;pgrep&lt;/code&gt;
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Check if a specific reverse tunnel is running&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;pgrep -u &lt;span class="nv"&gt;$USER&lt;/span&gt; -f &lt;span class="s2"&gt;&amp;#34;ssh.*2222:localhost.*39.105.78.91&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Precisely kill only the targeted tunnel process&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;pkill -u &lt;span class="nv"&gt;$USER&lt;/span&gt; -f &lt;span class="s2"&gt;&amp;#34;ssh.*2222:localhost.*public_ip&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Check if port is in use&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ss -tlnp &lt;span class="p"&gt;|&lt;/span&gt; grep &lt;span class="s2"&gt;&amp;#34;:2222&amp;#34;&lt;/span&gt; &lt;span class="c1"&gt;# modern (replaces netstat)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="102-the-tunnel-heartbeat-script"&gt;10.2 The Tunnel Heartbeat Script
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Configuration&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nv"&gt;ALIYUN_IP&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;39.105.78.91&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nv"&gt;REMOTE_PORT&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;2222&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nv"&gt;TUNNEL_KEY&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;/path/to/.ssh/tunnel_key&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 1. Idempotency check: if tunnel is already alive, exit silently.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;if&lt;/span&gt; pgrep -u &lt;span class="nv"&gt;$USER&lt;/span&gt; -f &lt;span class="s2"&gt;&amp;#34;ssh.*&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;REMOTE_PORT&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;:localhost.*&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;ALIYUN_IP&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt; &amp;gt; /dev/null&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nb"&gt;exit&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;fi&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 2. Clean up zombie processes&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;pkill -u &lt;span class="nv"&gt;$USER&lt;/span&gt; -f &lt;span class="s2"&gt;&amp;#34;ssh.*&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;REMOTE_PORT&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;:localhost.*&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;ALIYUN_IP&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt; 2&amp;gt;/dev/null
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 3. Establish tunnel&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh -i &lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;&lt;span class="nv"&gt;$TUNNEL_KEY&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt; &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -o &lt;span class="s2"&gt;&amp;#34;StrictHostKeyChecking=no&amp;#34;&lt;/span&gt; &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -o &lt;span class="s2"&gt;&amp;#34;ServerAliveInterval=30&amp;#34;&lt;/span&gt; &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -o &lt;span class="s2"&gt;&amp;#34;ServerAliveCountMax=3&amp;#34;&lt;/span&gt; &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -o &lt;span class="s2"&gt;&amp;#34;ExitOnForwardFailure=yes&amp;#34;&lt;/span&gt; &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -fNR &lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;REMOTE_PORT&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;:localhost:22&amp;#34;&lt;/span&gt; &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;root@&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;ALIYUN_IP&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 4. Secondary validation&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sleep &lt;span class="m"&gt;3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;if&lt;/span&gt; ! pgrep -u &lt;span class="nv"&gt;$USER&lt;/span&gt; -f &lt;span class="s2"&gt;&amp;#34;ssh.*&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;REMOTE_PORT&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;:localhost.*&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;ALIYUN_IP&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt; &amp;gt; /dev/null&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;Tunnel failed to start.&amp;#34;&lt;/span&gt; &amp;gt;&lt;span class="p"&gt;&amp;amp;&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nb"&gt;exit&lt;/span&gt; &lt;span class="m"&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;fi&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;Tunnel established: &lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;ALIYUN_IP&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;:&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;REMOTE_PORT&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt; -&amp;gt; localhost:22&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="103-cron-based-scheduling"&gt;10.3 Cron-Based Scheduling
+&lt;/h3&gt;&lt;pre tabindex="0"&gt;&lt;code class="language-cron" data-lang="cron"&gt;# Run heartbeat check every minute
+* * * * * /bin/bash /path/to/start_tunnel.sh &amp;gt;&amp;gt; /path/to/tunnel_cron.log 2&amp;gt;&amp;amp;1
+
+# Run once at system boot, with a 30-second delay
+@reboot sleep 30 &amp;amp;&amp;amp; /bin/bash /path/to/start_tunnel.sh &amp;gt; /path/to/tunnel_cron.log 2&amp;gt;&amp;amp;1
+&lt;/code&gt;&lt;/pre&gt;
+ &lt;blockquote&gt;
+ &lt;p&gt;The combination of &lt;code&gt;* * * * *&lt;/code&gt; (every minute) and the idempotency check creates a self-healing tunnel: maximum downtime is 60 seconds. &lt;code&gt;@reboot&lt;/code&gt; ensures the tunnel survives a full machine restart.&lt;/p&gt;
+
+ &lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id="11-troubleshooting--diagnostics"&gt;11. Troubleshooting &amp;amp; Diagnostics
+&lt;/h2&gt;&lt;h3 id="111-common-errors"&gt;11.1 Common Errors
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# &amp;#34;Permission denied (publickey)&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Causes:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# - Public key not in remote authorized_keys&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# - Incorrect permissions on ~/.ssh or authorized_keys&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# - Wrong private key offered (check with -v)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# &amp;#34;Too many authentication failures&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Fix: Use IdentitiesOnly yes + explicit IdentityFile in ~/.ssh/config&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# &amp;#34;WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Fix: ssh-keygen -R hostname (after verifying legitimacy)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# &amp;#34;bind: Address already in use&amp;#34; (with -L/-R)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Fix: Use a different port, or kill the process holding the port.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# &amp;#34;channel x: open failed: connect failed&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Fix: Verify the target is reachable from the SSH server side.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="112-diagnostic-commands"&gt;11.2 Diagnostic Commands
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Test SSH connectivity with maximum verbosity&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh -vvv user@host
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# List fingerprints of all local keys&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;for&lt;/span&gt; key in ~/.ssh/id_* ~/.ssh/*_key&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="o"&gt;[&lt;/span&gt; -f &lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;&lt;span class="nv"&gt;$key&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; ssh-keygen -lf &lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;&lt;span class="nv"&gt;$key&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;done&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Check permissions on remote .ssh&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ssh user@host &lt;span class="s2"&gt;&amp;#34;ls -la ~/.ssh/&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Check active SSH tunnels on the local machine&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ps aux &lt;span class="p"&gt;|&lt;/span&gt; grep &lt;span class="s2"&gt;&amp;#34;ssh.*-L\|ssh.*-R\|ssh.*-D&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id="12-security-best-practices"&gt;12. Security Best Practices
+&lt;/h2&gt;&lt;h3 id="121-server-side-hardening-etcsshsshd_config"&gt;12.1 Server-Side Hardening (&lt;code&gt;/etc/ssh/sshd_config&lt;/code&gt;)
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# Disable root login
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;PermitRootLogin no
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# Disable password authentication (keys only)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;PasswordAuthentication no
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# Limit authentication attempts
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;MaxAuthTries 3
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# Disable empty passwords
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;PermitEmptyPasswords no
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# Restrict users allowed to connect
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;AllowUsers alice bob
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# Disable X11 forwarding if not needed
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;X11Forwarding no
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# Set idle timeout (seconds)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ClientAliveInterval 300
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ClientAliveCountMax 2
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Apply changes&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sudo systemctl restart sshd
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="122-client-side-best-practices"&gt;12.2 Client-Side Best Practices
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# Never share private keys between machines.
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# Use Ed25519 keys.
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# Add passphrases to interactive-use keys.
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# Use IdentitiesOnly yes to avoid key offering storms.
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# Prefer ProxyJump over agent forwarding (-A).
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# Rotate keys periodically (especially deployment/CI keys).
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# Revoke compromised keys by removing them from authorized_keys.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id="13-quick-reference"&gt;13. Quick Reference
+&lt;/h2&gt;&lt;h3 id="131-essential-commands"&gt;13.1 Essential Commands
+&lt;/h3&gt;&lt;pre tabindex="0"&gt;&lt;code&gt;ssh user@host Connect to remote host
+ssh -p 2222 user@host Connect on non-default port
+ssh -i ~/.ssh/key user@host Use specific identity file
+ssh -v user@host Verbose (debug) mode
+ssh -J bastion target Connect through jump host
+ssh -L 8080:host:80 user@server Local port forward
+ssh -R 2222:localhost:22 user@srv Remote (reverse) port forward
+ssh -D 1080 user@server Dynamic SOCKS5 proxy forward
+ssh -fN Background with no remote command
+
+ssh-keygen -t ed25519 Generate Ed25519 key pair
+ssh-keygen -l -f ~/.ssh/key Show key fingerprint
+ssh-keygen -R hostname Remove host from known_hosts
+ssh-keygen -y -f private_key Extract public key from private
+
+ssh-copy-id -i key.pub user@host Deploy public key to server
+ssh-add ~/.ssh/key Add key to agent (cache passphrase)
+ssh-add -l List loaded keys
+
+scp file user@host:/path Copy file to remote
+rsync -avz dir/ user@host:/path/ Sync directory via SSH
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id="132-essential-config-snippets"&gt;13.2 Essential Config Snippets
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# Global keep-alive
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Host *
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; ServerAliveInterval 60
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; ServerAliveCountMax 5
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# Simple alias
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Host myserver
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; HostName 10.0.0.5
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; User admin
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Port 22
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; IdentityFile ~/.ssh/my_key
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# Jump host
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Host internal
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; HostName 10.0.0.100
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; User app
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; ProxyJump bastion
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# Reverse tunnel consumer
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Host behind_nat
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; HostName localhost
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Port 2222
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; User internal_user
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; ProxyJump public_relay
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="133-permission-cheat-sheet"&gt;13.3 Permission Cheat Sheet
+&lt;/h3&gt;&lt;pre tabindex="0"&gt;&lt;code&gt;chmod 700 ~/.ssh
+chmod 600 ~/.ssh/id_ed25519
+chmod 600 ~/.ssh/authorized_keys
+chmod 644 ~/.ssh/id_ed25519.pub
+chmod 644 ~/.ssh/known_hosts
+chmod 644 ~/.ssh/config
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;p&gt;&lt;em&gt;Last reviewed: 2026-07-18&lt;/em&gt;&lt;br&gt;
+&lt;em&gt;Editor: wuguojia&lt;/em&gt;&lt;/p&gt;</description></item></channel></rss>

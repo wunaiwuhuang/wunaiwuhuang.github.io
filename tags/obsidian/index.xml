@@ -151,20 +151,20 @@ Use two space characters &lt;code&gt;[ ][ ]&lt;/code&gt; at the end of a sentenc
 
  &lt;/blockquote&gt;
 &lt;table&gt;
- &lt;thead&gt;
- &lt;tr&gt;
- &lt;th style="text-align: center"&gt;title01&lt;/th&gt;
- &lt;th style="text-align: left"&gt;title02&lt;/th&gt;
- &lt;th style="text-align: right"&gt;title03&lt;/th&gt;
- &lt;/tr&gt;
- &lt;/thead&gt;
- &lt;tbody&gt;
- &lt;tr&gt;
- &lt;td style="text-align: center"&gt;123&lt;/td&gt;
- &lt;td style="text-align: left"&gt;123&lt;/td&gt;
- &lt;td style="text-align: right"&gt;123&lt;/td&gt;
- &lt;/tr&gt;
- &lt;/tbody&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th style="text-align: center"&gt;title01&lt;/th&gt;
+					&lt;th style="text-align: left"&gt;title02&lt;/th&gt;
+					&lt;th style="text-align: right"&gt;title03&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td style="text-align: center"&gt;123&lt;/td&gt;
+					&lt;td style="text-align: left"&gt;123&lt;/td&gt;
+					&lt;td style="text-align: right"&gt;123&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
 &lt;/table&gt;
 &lt;hr&gt;
 &lt;h2 id="9-tasks"&gt;9. Tasks
