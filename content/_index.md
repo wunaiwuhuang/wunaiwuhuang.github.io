@@ -1,9 +1,9 @@
 ---
 title: "Hello, I am Guojia Wu!"
-description: "Personal academic homepage — Basic Medicine & Bioinformatics"
+description: "Personal academic homepage — MPhil candidate at the University of Hong Kong"
 ---
 
-I am an undergraduate researcher focusing on **basic medicine** and **bioinformatics** at Tianjin Medical University. My work sits at the intersection of computational biology and translational cancer research.
+I am an MPhil candidate in the **School of Biomedical Sciences** at **The University of Hong Kong**, working in the [Chul KWON Lab](https://chullab.com/), where I focus on developing **CRISPR-Cas13 systems** with a primary emphasis on **bioinformatics**. I received my Bachelor of Medicine in Basic Medicine from Tianjin Medical University, where my research spanned computational biology and translational cancer research.
 
 <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 2rem;">
 

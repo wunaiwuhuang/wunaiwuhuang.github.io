@@ -24,7 +24,7 @@ defaultContentLanguage = 'en'
   mainSections = ['posts', 'projects', 'publications']
 
 [params.sidebar]
-  subtitle = 'Undergraduate Researcher — Basic Medicine & Bioinformatics'
+  subtitle = 'MPhil @ HKU School of Biomedical Sciences'
   avatar = '/images/avatar.jpg'
 
 [params.article]
@@ -105,8 +105,22 @@ defaultContentLanguage = 'en'
   weight = 1
 
 [[menu.social]]
+  identifier = 'google-scholar'
+  name = 'Google Scholar'
+  url = 'https://scholar.google.com/citations?user=pWiZhcsAAAAJ&hl=zh-CN&inst=18200959981353989911'
+  params = { icon = 'brand-scholar', newTab = true }
+  weight = 2
+
+[[menu.social]]
+  identifier = 'orcid'
+  name = 'ORCID'
+  url = 'https://orcid.org/0009-0002-2119-2964'
+  params = { icon = 'brand-orcid', newTab = true }
+  weight = 3
+
+[[menu.social]]
   identifier = 'email'
   name = 'Email'
-  url = 'mailto:wuguojia@tmu.edu.cn'
+  url = 'mailto:wuguojia2003@connect.hku.hk'
   params = { icon = 'link', newTab = true }
-  weight = 2
+  weight = 4

@@ -7,8 +7,15 @@ date: 2026-05-25
 
 | | |
 |---|---|
-| **Tianjin Medical University** | Sep. 2021 — Jun. 2026 (Expected) |
-| **Tianjin, China** | |
+| **The University of Hong Kong** | Sep. 2026 — Present |
+| **Hong Kong, China** | |
+| **MPhil, School of Biomedical Sciences** | |
+| **Postgraduate Scholarship** | |
+
+| | |
+|---|---|
+| **Tianjin Medical University** | Sep. 2021 — Jun. 2026 |
+| **Tianjin, China** | (Graduated) |
 | **Bachelor of Medicine in Basic Medicine** | |
 
 - **GPA:** 3.76 / 4.00
@@ -18,9 +25,9 @@ date: 2026-05-25
 
 ## Research Interests
 
-Throughout my undergraduate years, I was actively involved in diverse research areas within the biomedical sciences, which allowed me to cultivate a broad and interdisciplinary perspective. These experiences eventually led me to focus on the intersection of **bioinformatics** and **basic medicine**.
+I am an MPhil candidate in the School of Biomedical Sciences at The University of Hong Kong, working in the [Chul KWON Lab](https://chullab.com/), a high-throughput RNA biology laboratory. My research focuses on developing **CRISPR-Cas13 systems**, with a primary responsibility for **bioinformatics** — including computational design of guide RNAs, high-throughput sequencing data analysis, and systematic evaluation of RNA-targeting systems.
 
-I am especially interested in applying computational methods to investigate **cancer-related genomic and epigenetic alterations**, as well as the role of **tumor immune infiltration**. Looking ahead, I aim to contribute to the development of integrative bioinformatics strategies for understanding cancer mechanisms and identifying potential therapeutic targets.
+My undergraduate training in basic medicine and bioinformatics at Tianjin Medical University gave me a broad, interdisciplinary perspective. I became especially interested in applying computational methods to investigate **cancer-related genomic and epigenetic alterations** and **tumor immune infiltration**. Looking ahead, I aim to combine my bioinformatics expertise with CRISPR-Cas13 engineering to develop integrative tools for understanding cancer mechanisms and identifying potential therapeutic targets.
 
 ## Academic Skills
 
@@ -31,6 +38,10 @@ I am especially interested in applying computational methods to investigate **ca
 **Research Tools:** Operating system proficiency (Windows, Linux), version control and containerization (GitHub, Docker), literature search and reference management, data processing and academic writing, presentation and visualization (LaTeX, PowerPoint, Photoshop, Adobe Illustrator).
 
 ## Honours & Awards
+
+- **Postgraduate Scholarship, HKU School of Biomedical Sciences** (2026–Present)  
+  *The University of Hong Kong*  
+  Full postgraduate scholarship for MPhil studies.
 
 - **Tianjin Medical University Scholarship — Merit Student** (2021–2022)  
   *Tianjin Medical University*  
