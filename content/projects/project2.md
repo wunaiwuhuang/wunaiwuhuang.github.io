@@ -8,4 +8,6 @@ github: "https://github.com/wunaiwuhuang/MHCbenchmark"
 period: "Sep. 2024 — Jan. 2025"
 ---
 
-Benchmarked 17 state-of-the-art DNN-based tools for HLA-I peptide binding prediction using a self-curated dataset of 290,000+ peptides across 44 alleles. Assessed model accuracy, robustness, and interpretability; incorporated SHAP and LIME to reveal internal mechanisms and feature contributions. Found self-attention models achieved best overall performance, while capsule-based models showed strong generalizability. Provided actionable guidelines for model selection and clinical immunoinformatics tools.
+- **Conducted a comprehensive benchmark of deep learning models for peptide-HLA (pMHC) binding prediction.** Built an independent dataset of 290,000+ peptides across 44 alleles, carefully curated to avoid overlap with training sets, and used it as a gold-standard benchmark.
+- **Systematically evaluated 17 state-of-the-art predictors,** including conventional DNNs, attention-based architectures, and capsule networks. Compared predictive accuracy, robustness across alleles, and computational efficiency, and applied SHAP/LIME to dissect residue-level feature contributions. Found that self-attention models (STMHCpan, BigMHC) delivered the best overall performance, while models trained on eluted ligand data showed superior generalizability.
+- **Applied a range of computational and experimental techniques,** including dataset curation, deep learning model evaluation, and explainable AI analysis.

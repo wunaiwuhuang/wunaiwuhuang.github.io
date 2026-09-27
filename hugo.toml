@@ -33,6 +33,7 @@ defaultContentLanguage = 'en'
 
 [params.widgets]
   homepage = [
+    { type = "search" },
     { type = "archives", params = { limit = 5 } },
     { type = "categories", params = { limit = 10 } },
     { type = "tag-cloud", params = { limit = 10 } },
@@ -67,34 +68,28 @@ defaultContentLanguage = 'en'
   weight = 2
 
 [[menu.main]]
-  identifier = 'search'
-  name = 'Search'
-  url = '/search/'
-  weight = 3
-
-[[menu.main]]
   identifier = 'about'
   name = 'About'
   url = '/about/'
-  weight = 4
+  weight = 3
 
 [[menu.main]]
   identifier = 'projects'
   name = 'Projects'
   url = '/projects/'
-  weight = 5
+  weight = 4
 
 [[menu.main]]
   identifier = 'publications'
   name = 'Publications'
   url = '/publications/'
-  weight = 6
+  weight = 5
 
 [[menu.main]]
   identifier = 'contact'
   name = 'Contact'
   url = '/contact/'
-  weight = 7
+  weight = 6
 
 [[menu.social]]
   identifier = 'github'

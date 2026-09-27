@@ -5,17 +5,13 @@ date: 2026-05-25
 
 ## Education
 
-| | | Remarks |
-|---|---|---|
-| **The University of Hong Kong** | Sep. 2026 — Present | **Postgraduate Scholarship** |
-| **Hong Kong, China** | | |
-| **MPhil, School of Biomedical Sciences** | | |
+**The University of Hong Kong** · Hong Kong, China — *Sep. 2026 — Present*  
+MPhil, School of Biomedical Sciences
+- Postgraduate Scholarship
 
-| | | Remarks |
-|---|---|---|
-| **Tianjin Medical University** | Sep. 2021 — Jun. 2026 (Graduated) | GPA 3.76 / 4.00 · Ranked 1st of 21 · IELTS 7.0 (C1) · GRE 324 (V156 / Q168) |
-| **Tianjin, China** | | |
-| **Bachelor of Medicine in Basic Medicine** | | |
+**Tianjin Medical University** · Tianjin, China — *Sep. 2021 — Jun. 2026 (Graduated)*  
+Bachelor of Medicine in Basic Medicine
+- GPA 3.76 / 4.00 · Ranked 1st of 21 · IELTS 7.0 (C1) · GRE 324 (V156 / Q168)
 
 ## Research Interests
 

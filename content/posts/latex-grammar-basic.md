@@ -2,7 +2,7 @@
 title: "LaTeX Grammar Basic"
 date: 2026-07-18
 tags: ["LaTeX", "Math", "Typesetting", "Cheatsheet"]
-categories: ["Coding Notes"]
+categories: ["math note"]
 description: "Comprehensive LaTeX reference covering arithmetic, fractions, Greek letters, matrices, equations, and mathematical notation."
 ---
 
