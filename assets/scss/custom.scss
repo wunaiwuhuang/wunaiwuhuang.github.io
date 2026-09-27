@@ -124,6 +124,27 @@
     font-size: 0.85em;
 }
 
+/* Keep TOC compact so the font-size widget stays visible below it */
+.widget--toc .toc-nav {
+    overflow-y: auto;
+    max-height: 55vh;
+    padding-right: 0.5em;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--card-separator-color);
+        border-radius: 3px;
+    }
+
+    li {
+        margin-top: var(--spacing-sm);
+        margin-bottom: var(--spacing-sm);
+    }
+}
+
 /* Font size widget (article right sidebar) */
 .font-size-widget {
     .font-size-control {
