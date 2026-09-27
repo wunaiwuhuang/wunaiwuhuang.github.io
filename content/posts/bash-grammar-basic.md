@@ -1,7 +1,7 @@
 ---
 title: "Bash Grammar Basic"
 date: 2025-04-27
-tags: ["Bash", "Shell", "Linux", "Cheatsheet"]
+tags: ["Bash", "Linux", "Cheatsheet"]
 categories: ["Coding Notes"]
 description: "Comprehensive Bash reference covering variables, control structures, functions, text processing, and scripting best practices."
 ---

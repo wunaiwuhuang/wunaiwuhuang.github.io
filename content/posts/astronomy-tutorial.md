@@ -1,15 +1,9 @@
 ---
-title: "Astronomy Tutorial —— 深空摄影者的终身天文自学体系"
+title: "Astronomy Tutorial: A Lifelong Self-Study System for Deep-Sky Photographers"
 date: 2026-09-27
 tags: ["Astronomy", "Astrophotography", "Reading List", "Chinese"]
 categories: ["Astronomy note"]
 description: "深空摄影者的终身天文自学体系：68 本书、11 个模块、严格排序的阅读路线与十年路线图。"
----
-
-> 版本：2026-09 · 全库 **68 本** · **11 个模块** · 每模块内严格排序
-> 配套：本目录下所有电子书已按要求重命名，命名格式 `module**_{p优先级}_{书名}_{作者}.{格式}`，
-> 本教程全书所有引用均使用**新文件名**，可在目录里直接对号入座。
-
 ---
 
 ## 0. 先读这页：标记体系、命名规则与模块地图

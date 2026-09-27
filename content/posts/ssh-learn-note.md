@@ -1,7 +1,7 @@
 ---
 title: "SSH The Definitive Guide"
 date: 2026-07-18
-tags: ["SSH", "Networking", "Linux", "Infrastructure", "Security", "Cheatsheet"]
+tags: ["SSH", "Networking", "Linux", "Security", "Cheatsheet"]
 categories: ["Coding Notes"]
 description: "Comprehensive SSH reference covering key management, tunneling, ProxyJump, reverse tunnels, Cloudflare Tunnel, and real-world infrastructure."
 ---

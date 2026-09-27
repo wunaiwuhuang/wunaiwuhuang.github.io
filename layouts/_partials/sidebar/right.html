@@ -12,6 +12,9 @@
                 {{ warnf "Widget %s not found" .type }}
             {{ end }}
         {{ end }}
+        {{- if eq $scope "page" -}}
+            {{- partial "widget/font-size" (dict "Context" $context) -}}
+        {{- end -}}
     </aside>
     {{- end -}}
 {{ end }}

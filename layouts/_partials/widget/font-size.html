@@ -1,0 +1,48 @@
+<section class="widget font-size-widget">
+    <div class="widget-icon">
+        {{ partial "helper/icon" "font-size" }}
+    </div>
+    <h2 class="widget-title section-title">Font Size</h2>
+    <div class="font-size-control">
+        <span class="font-size-label font-size-min">A</span>
+        <input type="range" id="article-font-size" min="14" max="20" step="1" value="17" aria-label="Adjust article font size">
+        <span class="font-size-label font-size-max">A</span>
+    </div>
+    <span class="font-size-value" id="article-font-size-value">17 px</span>
+</section>
+
+<script>
+    (function () {
+        var KEY = 'stack-article-font-size';
+        var root = document.documentElement;
+        var slider = document.getElementById('article-font-size');
+        var valueLabel = document.getElementById('article-font-size-value');
+        if (!slider) return;
+
+        var saved = null;
+        try { saved = localStorage.getItem(KEY); } catch (e) {}
+
+        function apply(value) {
+            root.style.setProperty('--article-font-size', value + 'px');
+            slider.value = value;
+            if (valueLabel) valueLabel.textContent = value + ' px';
+        }
+
+        if (saved !== null && !isNaN(parseInt(saved, 10))) {
+            apply(parseInt(saved, 10));
+        } else {
+            slider.value = 17;
+        }
+
+        slider.addEventListener('input', function () {
+            var value = parseInt(slider.value, 10);
+            apply(value);
+            try { localStorage.setItem(KEY, value); } catch (e) {}
+        });
+
+        slider.addEventListener('dblclick', function () {
+            apply(17);
+            try { localStorage.removeItem(KEY); } catch (e) {}
+        });
+    })();
+</script>
