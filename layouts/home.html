@@ -1,20 +1,27 @@
 {{ define "main" }}
     {{- if .Content }}
-    <div class="home-content">
+    <div class="home-intro">
         {{- .Content -}}
     </div>
     {{- end }}
 
-    {{- $paginator := partial "helper/paginator.html" . -}}
-
-    <section class="article-list">
-        {{ range $index, $element := $paginator.Pages }}
-            {{ partial "article-list/default" . }}
-        {{ end }}
+    {{- $latestPosts := first 4 (where site.RegularPages "Type" "posts") -}}
+    {{- if $latestPosts }}
+    <section class="home-latest">
+        <h2>Latest Posts</h2>
+        <div class="home-latest-list">
+            {{- range $latestPosts }}
+            <article class="home-latest-item">
+                <time class="home-latest-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+                <a class="home-latest-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
+            </article>
+            {{- end }}
+        </div>
+        <p class="home-latest-more"><a href="/archives/">View all posts &rarr;</a></p>
     </section>
+    {{- end }}
 
-    {{- partial "pagination.html" . -}}
-    {{- partial "footer/footer" . -}}
+    {{- partial "footer/footer" . }}
 {{ end }}
 
 {{ define "right-sidebar" }}

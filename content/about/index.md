@@ -5,23 +5,17 @@ date: 2026-05-25
 
 ## Education
 
-| | |
-|---|---|
-| **The University of Hong Kong** | Sep. 2026 — Present |
-| **Hong Kong, China** | |
-| **MPhil, School of Biomedical Sciences** | |
-| **Postgraduate Scholarship** | |
+| | | Remarks |
+|---|---|---|
+| **The University of Hong Kong** | Sep. 2026 — Present | **Postgraduate Scholarship** |
+| **Hong Kong, China** | | |
+| **MPhil, School of Biomedical Sciences** | | |
 
-| | |
-|---|---|
-| **Tianjin Medical University** | Sep. 2021 — Jun. 2026 |
-| **Tianjin, China** | (Graduated) |
-| **Bachelor of Medicine in Basic Medicine** | |
-
-- **GPA:** 3.76 / 4.00
-- **Ranking:** 1st out of 21 students
-- **IELTS:** 7.0 (C1)
-- **GRE:** 324 (V:156 Q:168)
+| | | Remarks |
+|---|---|---|
+| **Tianjin Medical University** | Sep. 2021 — Jun. 2026 (Graduated) | GPA 3.76 / 4.00 · Ranked 1st of 21 · IELTS 7.0 (C1) · GRE 324 (V156 / Q168) |
+| **Tianjin, China** | | |
+| **Bachelor of Medicine in Basic Medicine** | | |
 
 ## Research Interests
 
@@ -43,52 +37,26 @@ My undergraduate training in basic medicine and bioinformatics at Tianjin Medica
   *The University of Hong Kong*  
   Full postgraduate scholarship for MPhil studies.
 
-- **Tianjin Medical University Scholarship — Merit Student** (2021–2022)  
+- **Zhu Xianyi Scholarship (Top Scholarship of TMU)** (2024–2025)  
   *Tianjin Medical University*  
-  2,000 RMB. Awarded to top 1% of students.  
-  [View Certificate](https://github.com/wunaiwuhuang/materials/tree/main/05.Awards%20and%20Honour)
-
-- **Tianjin Medical University Scholarship — First Prize** (2022–2023)  
-  *Tianjin Medical University*  
-  1,500 RMB. Awarded to top 1% of students.  
-  [View Certificate](https://github.com/wunaiwuhuang/materials/tree/main/05.Awards%20and%20Honour)
-
-- **Tianjin Medical University Scholarship — First Prize** (2023–2024)  
-  *Tianjin Medical University*  
-  1,500 RMB. Awarded to top 1% of students.  
-  [View Certificate](https://github.com/wunaiwuhuang/materials/tree/main/05.Awards%20and%20Honour)
+  20,000 RMB. Highest honor for all TMU students. Top 0.01%.
 
 - **Tianjin Medical University Scholarship — First Prize** (2024–2025)  
   *Tianjin Medical University*  
-  1,500 RMB. Awarded to top 1% of students.  
-  [View Certificate](https://github.com/wunaiwuhuang/materials/tree/main/05.Awards%20and%20Honour)
+  1,500 RMB. Awarded to top 1% of students.
 
-- **Zhu Xianyi Scholarship (Top Scholarship of TMU)** (2024–2025)  
+- **Tianjin Medical University Scholarship — First Prize** (2023–2024)  
   *Tianjin Medical University*  
-  20,000 RMB. Highest honor for all TMU students. Top 0.01%.  
-  [View Certificate](https://www.tmu.edu.cn/xgb/2025/1128/c8289a85290/page.htm)
+  1,500 RMB. Awarded to top 1% of students.
+
+- **Tianjin Medical University Scholarship — First Prize** (2022–2023)  
+  *Tianjin Medical University*  
+  1,500 RMB. Awarded to top 1% of students.
+
+- **Tianjin Medical University Scholarship — Merit Student** (2021–2022)  
+  *Tianjin Medical University*  
+  2,000 RMB. Awarded to top 1% of students.
 
 - **Third Prize, International Forum on Basic Medical Sciences** (Aug. 2024)  
   *National Demonstration Center for Experimental Education*  
-  Led TMU's first participation in the "Belt and Road" International Track.  
-  [View Certificate](https://github.com/wunaiwuhuang/materials/tree/main/05.Awards%20and%20Honour)
-
-- **Third Prize, Chinese Mathematics Competitions** (Dec. 2023)  
-  *Chinese Mathematical Society*  
-  [View Certificate](https://github.com/wunaiwuhuang/materials/tree/main/05.Awards%20and%20Honour)
-
-- **Third Prize, Tianjin Chemistry Competition** (Oct. 2023)  
-  *Tianjin Municipal Education Commission*  
-  [View Certificate](https://github.com/wunaiwuhuang/materials/tree/main/05.Awards%20and%20Honour)
-
-- **Third Prize, Tianjin Biology Experimental Competition** (Oct. 2024)  
-  *Tianjin Municipal Education Commission*  
-  [View Certificate](https://github.com/wunaiwuhuang/materials/tree/main/05.Awards%20and%20Honour)
-
-- **First Prize (Best), Internet Innovation and Entrepreneurship Competition** (2022–2024)  
-  *Ministry of Education of the People's Republic of China*  
-  [View Certificate](https://github.com/wunaiwuhuang/materials/tree/main/05.Awards%20and%20Honour)
-
-- **Second Prize (Best), Challenge Cup National Undergraduate Entrepreneurship Plan Competition** (2023–2024)  
-  *Ministry of Education of the People's Republic of China*  
-  [View Certificate](https://github.com/wunaiwuhuang/materials/tree/main/05.Awards%20and%20Honour)
+  Led TMU's first participation in the "Belt and Road" International Track.
