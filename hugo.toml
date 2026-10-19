@@ -54,6 +54,13 @@ defaultContentLanguage = 'en'
     startLevel = 1
   [markup.goldmark.renderer]
     unsafe = true
+  # Pass math through untouched so KaTeX receives the raw TeX
+  # (prevents Markdown from eating backslashes/underscores/braces in formulas).
+  [markup.goldmark.extensions.passthrough]
+    enable = true
+    [markup.goldmark.extensions.passthrough.delimiters]
+      block = [['$$', '$$']]
+      inline = [['$', '$']]
 
 [[menu.main]]
   identifier = 'home'

@@ -199,3 +199,12 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* LaTeX/TikZ figures (math notes): rendered on a white canvas, so give them
+   their own light backdrop and framing to stay readable in dark mode. */
+.main-article img[src*="/images/notes/"] {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 0.5rem;
+    box-shadow: var(--shadow-l1);
+}
