@@ -5,7 +5,7 @@
     </div>
     {{- end }}
 
-    {{- $latestPosts := first 4 (where site.RegularPages "Type" "posts") -}}
+    {{- $latestPosts := first 6 (where site.RegularPages "Type" "posts") -}}
     {{- if $latestPosts }}
     <section class="home-latest">
         <h2>Latest Posts</h2>

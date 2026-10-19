@@ -19,12 +19,8 @@ date: 2026-05-25
 
 - **[Preprint]** Kong, J., Leung, S. S. K., **Wu, G.**, Lau, C. F., Mok, B. W.-Y., Weng, M., Jauch, R., Chen, H., & Kwon, S. C. (2025). **High-resolution RNA knockdown profiles of small RNA and Cas13 systems.** *bioRxiv*. [DOI: 10.1101/2025.11.17.688664](https://www.biorxiv.org/content/10.1101/2025.11.17.688664)
 
-- **[AP.2]** Li, W., Guo, R., Zhang, R., Wang, Y., Cao, R., Liu, Y., Chen, R., **Wu, G.**, & Wang, D. (2025). **Mapping the landscape: a comprehensive bibliometric analysis of immunotherapy advances in glioblastoma research.** *Discover Oncology*, 16(1), 2067.
-
-- **[Preprint]** Li, W., Xia, X., Wang, T., Zheng, Y., Liu, Y., Lin, E., Liao, Y., **Wu, G.**, Zhuang, H., Wang, D., & Wang, B. (2025). **SLC6A6 alleviates cellular senescence in glioblastoma via the CSK/AKT/FoxO1 signaling.** *Preprint*.
-
 ## 2024
 
-- **[AP.3]** Sun, L., Zhai, S., **Wu, G.**, Gu, J., Huang, Y., Hong, D., Wang, J., & Li, Y. (2024). **Diagnostic sensitivity of immune-inflammatory cell proportion in early diagnosis of endometrial cancer.** *Clinical Surgical Oncology*, 3(3), 100058.
+- **[AP.2]** Sun, L., Zhai, S., **Wu, G.**, Gu, J., Huang, Y., Hong, D., Wang, J., & Li, Y. (2024). **Diagnostic sensitivity of immune-inflammatory cell proportion in early diagnosis of endometrial cancer.** *Clinical Surgical Oncology*, 3(3), 100058.
 
 - **[RP.1]** **Wu, G.**, Zhai, S., Sun, X., Huang, Y., Li, Y., & Sun, L. (2024). **Progress of the effect of hydroxyacyl-coenzyme A dehydrogenase in cancer development and its mechanism.** *Basic & Clinical Medicine*, 44(1), 119.
