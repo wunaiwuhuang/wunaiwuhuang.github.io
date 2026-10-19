@@ -1,9 +1,9 @@
 ---
-title: "Generalization Theory, Model Complexity, and the Double Descent Mechanism"
+title: "Generalization Theory, PAC Learning, and the Modern Over-parameterization Paradigm"
 date: 2026-10-19
-tags: ["Machine Learning", "Generalization", "VC Dimension", "Double Descent", "Regularization"]
+tags: ["Machine Learning", "PAC Learning", "Generalization", "VC Dimension", "Double Descent"]
 categories: ["Machine learning"]
-description: "Study notes on generalization: hypothesis spaces, expected vs. empirical risk, Hoeffding, VC-dimension and the modern double descent phenomenon — plus why over-parameterization still generalizes."
+description: "Study notes on generalization and PAC learning: hypothesis spaces, expected vs. empirical risk, Hoeffding bounds, sample complexity, model-selection pitfalls, VC-dimension, and the modern double descent phenomenon."
 ---
 
 ## Foundations of Generalization: Hypothesis Space & Risk Formulations
@@ -70,6 +70,29 @@ $$
 
 $\blacksquare$
 
+### The PAC Framework: Demystifying $\varepsilon$, $\delta$, and Sample Complexity
+
+The foundational paradigm of theoretical machine learning is **PAC Learning** (Probably Approximately Correct), introduced by Leslie Valiant. It acknowledges that because empirical data is randomly drawn from nature, absolute mathematical certainty is impossible.
+
+**Definition (PAC Learnability).** A hypothesis class $\mathcal{H}$ is PAC-learnable if there exists an algorithm such that for any distribution $\mathcal{D}$ and any arbitrary tolerances $\varepsilon \in (0, 1)$ and $\delta \in (0, 1)$, given $N \ge N(\varepsilon, \delta)$ samples, the algorithm outputs a hypothesis $\hat{h}$ satisfying:
+
+$$ P\Big( L(\hat{h}, \mathcal{D}_{\text{all}}) - \min_{h \in \mathcal{H}} L(h, \mathcal{D}_{\text{all}}) \le \varepsilon \Big) \ge 1 - \delta $$
+
+**Dual Interpretations of $\varepsilon$ and $\delta$:**
+
+- **$\varepsilon$ (Accuracy Tolerance / Precision Margin):** Governs *how approximately correct* the solution must be. It dictates the maximum permissible discrepancy between empirical observation and global reality.
+- **$\delta$ (Confidence Failure Risk):** Governs *how probable* catastrophic failure is. Because samples are stochastic, there is always a non-zero probability of drawing pathological, unrepresentative outliers. $\delta$ sets the strict upper bound on this disaster probability (i.e., confidence is at least $1 - \delta$).
+
+**Inverting the Hoeffding Bound into Sample Complexity.** By setting the worst-case failure probability upper bound to not exceed $\delta$:
+
+$$ P(\mathcal{D}_{\text{train}} \text{ is bad}) \le 2|\mathcal{H}| \exp\left(-2N\varepsilon^2\right) \le \delta $$
+
+Solving analytically for the sample size $N$ yields the fundamental **Sample Complexity**:
+
+$$ -2N\varepsilon^2 \le \ln\left(\frac{\delta}{2|\mathcal{H}|}\right) \iff 2N\varepsilon^2 \ge \ln\left(\frac{2|\mathcal{H}|}{\delta}\right) \iff N \ge \frac{1}{2\varepsilon^2} \left( \ln(2|\mathcal{H}|) + \ln\frac{1}{\delta} \right) $$
+
+**The Engineering Reality:** The required data volume scales quadratically with precision demand ($\mathcal{O}(1/\varepsilon^2)$), logarithmically with model class cardinality ($\ln|\mathcal{H}|$), and logarithmically with safety confidence ($\ln(1/\delta)$).
+
 ## From Discrete Counting to Continuous Parameters
 
 ### The Discrete Setting: Hoeffding's Inequality & Union Bound
@@ -88,7 +111,7 @@ P(\mathcal{D}_{\text{train}} \text{ is bad}) &= P\left( \bigcup_{h \in \mathcal{
 \end{aligned}
 $$
 
-**Numerical Illustration ($|\mathcal{H}|=10\,000, \varepsilon=0.1$):**
+**Numerical Mechanics ($|\mathcal{H}|=10\,000, \varepsilon=0.1$):**
 
 - $N=100 \implies P(\mathcal{D}_{\text{train}} \text{ is bad}) \le 10\,000 \times 2\exp(-2) \approx 2707$. The bound is statistically trivial (vacuous) because true probability cannot exceed $1$. It signifies that statistical theory **cannot guarantee generalization** when sample volume $N$ is dwarfed by candidate capacity $|\mathcal{H}|$.
 - $N=1000 \implies P(\mathcal{D}_{\text{train}} \text{ is bad}) \le 10\,000 \times 2\exp(-20) \le 0.00004$ (generalization is guaranteed with $99.996\%$ confidence).
@@ -124,6 +147,54 @@ $$ m_{\mathcal{H}}(N) \le \left( \frac{eN}{d_{\text{VC}}} \right)^{d_{\text{VC}}
 $$ P(\mathcal{D}_{\text{train}} \text{ is bad}) \le 4 \underbrace{\left( \frac{2eN}{d_{\text{VC}}} \right)^{d_{\text{VC}}}}_{\text{Polynomial Growth } \mathcal{O}(N^d)} \cdot \underbrace{\exp\left( -\frac{1}{8} N \varepsilon^2 \right)}_{\text{Exponential Decay } \mathcal{O}(e^{-N})} $$
 
 **Core Intuition:** Even though continuous parameters create an infinite number of candidate functions ($|\mathcal{H}| = \infty$), their ability to generate distinct outputs on $N$ points grows only polynomially ($\mathcal{O}(N^{d_{\text{VC}}})$). Because exponential decay asymptotically dominates any polynomial rate, **the error bound vanishes to zero as sample size $N \to \infty$.**
+
+## Model Selection, Validation Pitfalls, and the Nature of Overfitting
+
+### Model Selection as Training: The Validation Bound
+
+In practice, machine learning workflows train several competing candidate architectures (or hyperparameter configurations) $\mathcal{H}_1, \mathcal{H}_2, \dots, \mathcal{H}_M$ on $\mathcal{D}_{\text{train}}$, yielding candidate models:
+
+$$ h_m^* = \arg\min_{h \in \mathcal{H}_m} L(h, \mathcal{D}_{\text{train}}), \quad m \in \{1, \dots, M\} $$
+
+To select the best model, practitioners evaluate them against an independent validation set $\mathcal{D}_{\text{val}}$:
+
+$$ h^* = \arg\min_{h \in \mathcal{H}_{\text{val}}} L(h, \mathcal{D}_{\text{val}}), \quad \text{where } \mathcal{H}_{\text{val}} \triangleq \{h_1^*, h_2^*, \dots, h_M^*\} $$
+
+**The Critical Theoretical Insight:** Evaluating and selecting a model using a validation set is mathematically equivalent to **empirical risk minimization on $\mathcal{D}_{\text{val}}$** over the hypothesis class $\mathcal{H}_{\text{val}}$. Applying Hoeffding's inequality over the validation pool yields:
+
+$$ P(\mathcal{D}_{\text{val}} \text{ is bad}) \le |\mathcal{H}_{\text{val}}| \cdot 2\exp\left(-2 N_{\text{val}} \varepsilon^2\right) $$
+
+### The Benchmark Paradox: Peeking & Overfitting to the Validation Set
+
+This formulation reveals a counter-intuitive engineering truth:
+
+- **The Risk of Large Candidate Pools ($|\mathcal{H}_{\text{val}}| \to \infty$):** If an engineer benchmarks thousands of hyperparameter configurations against the same validation set, the likelihood that at least one mediocre model gets an outstanding validation score purely by stochastic luck approaches $1$.
+- **Human as Optimizer:** Continual manual tuning based on validation feedback effectively turns the human engineer into an outer-loop optimization algorithm, causing the model family to overfit to $\mathcal{D}_{\text{val}}$ (Data Leakage through Peeking).
+- **The Candidate Reduction Dilemma:** While shrinking $|\mathcal{H}_{\text{val}}|$ mathematically tightens the bound, arbitrarily discarding models risks excluding the true optimal model (incurring high Approximation Error).
+- **The True Solution ($N_{\text{val}}$ Scaling):** Because validation bounds scale exponentially with validation size $\exp(-2 N_{\text{val}} \varepsilon^2)$ but only linearly with pool size $|\mathcal{H}_{\text{val}}|$, increasing validation sample volume (e.g., via $K$-fold cross-validation) is mathematically superior to artificially restricting experimentation.
+
+### A Rigorous Definition of Overfitting
+
+Overfitting is often colloquially confused with "zero training error" or "model complexity". In statistical learning theory, overfitting has an exact, comparative definition:
+
+**Definition (Overfitting as Relative Degradation).** Given two hypotheses $h_1, h_2 \in \mathcal{H}$, hypothesis $h_2$ is said to **overfit relative to $h_1$** if and only if:
+
+$$ L(h_2, \mathcal{D}_{\text{train}}) < L(h_1, \mathcal{D}_{\text{train}}) \quad \text{and} \quad L(h_2, \mathcal{D}_{\text{test}}) > L(h_1, \mathcal{D}_{\text{test}}) $$
+
+**Three-Way Diagnostic Framework:**
+
+1. **Underfitting (High Bias / Approximation Error):** Both training error and test error are large ($L_{\text{train}} \gg 0, L_{\text{test}} \gg 0$). The model family lacks the expressive capacity to fit the underlying phenomenon.
+2. **Overfitting (High Variance / Estimation Error):** Training error is exceptionally low, but the generalization gap diverges ($L_{\text{train}} \approx 0, L_{\text{test}} \gg 0$). The model has memorized sample-specific stochastic noise rather than generalizable signals.
+3. **Data Mismatch (Covariate Shift):** Training error is low, test error is high, but the cause is that the underlying generating distributions differ ($\mathcal{D}_{\text{train}} \ne \mathcal{D}_{\text{test}}$). This is a domain shift problem, unresolvable by statistical regularization.
+
+### Epistemological Synthesis: Subjectivity Under Mathematical Discipline
+
+Machine learning cannot eliminate human subjectivity:
+
+- Setting $\varepsilon$ and $\delta$ reflects subjective human risk tolerance.
+- Choosing an inductive architecture (e.g., CNNs vs. Transformers) reflects human physical priors about the world.
+
+However, statistical learning theory transforms subjective choices from arbitrary guessing into **disciplined engineering**: it establishes the exact mathematical cost ($N \ge N(\varepsilon, \delta, \mathcal{H})$) required to guarantee that human priors do not lead to unmitigated failure.
 
 ## The Modern Resolution: The Double Descent Phenomenon
 
