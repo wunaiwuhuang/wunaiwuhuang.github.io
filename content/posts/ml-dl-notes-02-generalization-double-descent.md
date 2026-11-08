@@ -2,7 +2,7 @@
 title: "Generalization Theory, PAC Learning, and the Modern Over-parameterization Paradigm"
 date: 2026-10-19
 tags: ["Machine Learning", "PAC Learning", "Generalization", "VC Dimension", "Double Descent"]
-categories: ["Machine learning"]
+categories: ["Machine Learning"]
 description: "Study notes on generalization and PAC learning: hypothesis spaces, expected vs. empirical risk, Hoeffding bounds, sample complexity, model-selection pitfalls, VC-dimension, and the modern double descent phenomenon."
 ---
 

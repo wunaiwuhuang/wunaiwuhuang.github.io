@@ -3,7 +3,7 @@ title: "The role of HADH Isoform 3 in Endometrial Cancer"
 date: 2023-03-01
 tags: ["Endometrial Cancer", "HADH", "RNA-seq", "Lasso", "Prognosis"]
 categories: ["Project"]
-type: "Independent Project"
+project_type: "Independent Project"
 period: "Mar. 2023 — Aug. 2024"
 ---
 

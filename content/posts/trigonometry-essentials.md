@@ -2,7 +2,7 @@
 title: "Essential Trigonometry for Higher Mathematics and Engineering"
 date: 2026-10-18
 tags: ["Trigonometry", "Mathematics", "Calculus", "Fourier Analysis", "Identities"]
-categories: ["Math note"]
+categories: ["Math Note"]
 description: "A compact but rigorous reference on trigonometry: radians and the unit circle, the addition/double-angle chain, auxiliary-angle synthesis, product-to-sum and Weierstrass substitutions, and triangle geometry."
 ---
 

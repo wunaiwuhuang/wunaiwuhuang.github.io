@@ -2,7 +2,7 @@
 title: "From Linear Regression to Deep Neural Networks"
 date: 2026-10-18
 tags: ["Machine Learning", "Neural Networks", "Gradient Descent", "Activation Functions", "Backpropagation"]
-categories: ["Machine learning"]
+categories: ["Machine Learning"]
 description: "Study notes bridging linear regression, loss formulations, gradient descent, activation functions and multi-layer networks — with full derivations, figures and a model-diagnostics decision tree."
 ---
 

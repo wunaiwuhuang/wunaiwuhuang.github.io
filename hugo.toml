@@ -5,8 +5,7 @@ theme = 'stack'
 defaultContentLanguage = 'en'
 
 [languages.en]
-  languageName = 'English'
-  languageCode = 'en'
+  label = 'English'
   locale = 'en-US'
   weight = 1
 

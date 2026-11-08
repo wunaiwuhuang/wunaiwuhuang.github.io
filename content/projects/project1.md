@@ -3,7 +3,7 @@ title: "Pan-Cancer Atlas of TCGA ipaQTM"
 date: 2025-03-01
 tags: ["DNA Methylation", "Alternative Polyadenylation", "Pan-Cancer", "TCGA", "Methylation-QTL"]
 categories: ["Project"]
-type: "Independent Project"
+project_type: "Independent Project"
 github: "https://github.com/wunaiwuhuang/ipaQTM"
 period: "Mar. 2025 — Jun. 2026"
 ---

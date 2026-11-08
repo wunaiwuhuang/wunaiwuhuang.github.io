@@ -10,7 +10,7 @@ Built with [Hugo](https://gohugo.io) (Stack theme), deployed via GitHub Actions 
 
 | Layer | Technology |
 |---|---|
-| Static Site Generator | Hugo Extended (>= v0.157.0) |
+| Static Site Generator | Hugo Extended 0.169.0 (pinned in CI; minimum 0.157.0) |
 | Theme | [Stack](https://github.com/CaiJimmy/hugo-theme-stack) (git submodule) |
 | CI/CD | GitHub Actions — `peaceiris/actions-hugo` + `peaceiris/actions-gh-pages` |
 | Hosting | GitHub Pages (`gh-pages` branch) |
@@ -67,6 +67,12 @@ description: "Short summary for SEO and card preview"
 
 Posts appear on the homepage automatically, sorted by `date`.
 
+### Content Conventions
+
+- Categories use Title Case: `Coding Notes`, `Math Note`, `Machine Learning`, `Astronomy Note`, `Project`.
+- Keep tags to five or fewer per post.
+- The Archives page lists blog posts only; projects and publications stay in their own sections.
+
 ### Add a New Project
 
 ```bash
@@ -81,6 +87,7 @@ tags: ["keyword1", "keyword2"]
 categories: ["Project"]
 github: "https://github.com/user/repo"   # optional, omit if none
 period: "Mar. 2025 — Present"            # custom, shown on card
+project_type: "Independent Project"      # custom badge; avoid reserved `type`
 ---
 ```
 
@@ -192,7 +199,7 @@ Available icons in Stack: `brand-github`, `brand-twitter`, `link`, `rss`, `messa
 
 ### Prerequisites
 
-- Hugo Extended >= v0.157.0 (check with `hugo version`)
+- Hugo Extended 0.169.0 (pinned in CI; minimum 0.157.0; check with `hugo version`)
 - Git
 
 ### First-Time Setup
@@ -235,6 +242,7 @@ git push master
   → GitHub Pages serves gh-pages branch
 ```
 
+- **Hugo version:** 0.169.0 (pinned in `.github/workflows/gh-pages.yml`)
 - **Source branch:** `master` (Markdown + config + theme submodule)
 - **Deploy branch:** `gh-pages` (compiled HTML/CSS/JS, auto-generated)
 - **Never edit `gh-pages` directly.** It is overwritten by CI.

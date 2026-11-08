@@ -2,7 +2,7 @@
 title: "Astronomy Tutorial: A Lifelong Self-Study System for Deep-Sky Photographers"
 date: 2026-09-27
 tags: ["Astronomy", "Astrophotography", "Reading List", "Chinese"]
-categories: ["Astronomy note"]
+categories: ["Astronomy Note"]
 description: "深空摄影者的终身天文自学体系：68 本书、11 个模块、严格排序的阅读路线与十年路线图。"
 ---
 

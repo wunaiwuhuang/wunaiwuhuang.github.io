@@ -2,7 +2,7 @@
 title: "Evaluation Metrics Comprehensive Guide"
 date: 2026-07-18
 tags: ["Machine Learning", "Statistics", "Metrics", "Cheatsheet"]
-categories: ["math note"]
+categories: ["Math Note"]
 description: "Comprehensive reference covering classification, regression, ranking, computer vision, NLP, and more evaluation metrics with formulas."
 ---
 

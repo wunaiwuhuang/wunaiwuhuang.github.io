@@ -1,0 +1,44 @@
+{{ define "main" }}
+    <header>
+        <h3 class="section-title">{{ .Title }}</h3>
+        {{ with .Content }}
+            <div class="project-intro">{{ . }}</div>
+        {{ end }}
+    </header>
+
+    {{ with .Pages }}
+    <section class="project-list">
+        {{ range . }}
+        <article class="project-card">
+            <div class="project-card-head">
+                <h2 class="project-card-title">
+                    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                </h2>
+                {{ with .Params.project_type }}<span class="project-type">{{ . }}</span>{{ end }}
+            </div>
+
+            {{ with .Params.period }}<p class="project-period">{{ . }}</p>{{ end }}
+
+            <p class="project-summary">{{ .Summary | plainify | truncate 220 }}</p>
+
+            {{ with .GetTerms "tags" }}
+            <div class="project-tags">
+                {{ range . }}
+                    <a href="{{ .RelPermalink }}" class="project-tag">{{ .LinkTitle }}</a>
+                {{ end }}
+            </div>
+            {{ end }}
+
+            {{ with .Params.github }}
+            <a class="project-github" href="{{ . }}" target="_blank" rel="noopener">
+                {{ partial "helper/icon" "brand-github" }}
+                <span>GitHub</span>
+            </a>
+            {{ end }}
+        </article>
+        {{ end }}
+    </section>
+    {{ end }}
+
+    {{ partialCached "footer/footer" . }}
+{{ end }}

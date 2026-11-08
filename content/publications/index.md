@@ -1,6 +1,7 @@
 ---
 title: Publications
 date: 2026-05-25
+type: "publications"
 ---
 
 <div style="text-align: center; margin-bottom: 0.5rem;">

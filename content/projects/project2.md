@@ -3,7 +3,7 @@ title: "Comprehensive Benchmark of DNN-Based pMHC Predictors"
 date: 2024-09-01
 tags: ["Immunoinformatics", "Deep Learning", "pMHC", "XAI", "Benchmark"]
 categories: ["Project"]
-type: "Independent Project"
+project_type: "Independent Project"
 github: "https://github.com/wunaiwuhuang/MHCbenchmark"
 period: "Sep. 2024 — Jan. 2025"
 ---

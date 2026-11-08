@@ -3,7 +3,7 @@ title: "shRNAone & Cas13: High-Resolution RNA Knockdown Profiling"
 date: 2026-04-01
 tags: ["CRISPR-Cas13", "RNAi", "shRNAone", "High-throughput Sequencing", "RNA Accessibility", "Bioinformatics"]
 categories: ["Project"]
-type: "HKU Project"
+project_type: "HKU Project"
 period: "Apr. 2026 — Sep. 2026"
 ---
 
